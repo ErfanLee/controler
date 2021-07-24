@@ -25,6 +25,7 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -37,7 +38,7 @@ import java.util.TimerTask;
 
 public class MyMqttService extends Service {
 
-    public final String TAG = "DebugTag";
+    public static final String TAG = "DebugTag";
     private static MqttAndroidClient  mqttAndroidClient;
     private        MqttConnectOptions mMqttConnectOptions;
     public        String HOST           = "ws://broker.emqx.io:8083";//服务器地址（协议+地址+端口号）
@@ -45,8 +46,8 @@ public class MyMqttService extends Service {
     public        String PASSWORD       = "password";//密码
     public static String PUBLISH_TOPIC  = "test211";//发布主题
     public static String RESPONSE_TOPIC = "message_arrived";//响应主题
-//    @RequiresApi(api = 26)
-    public        String CLIENT_NUM       = "b5b6c47c323940baa8770b0aea94fa57";//客户端ID，一般以客户端唯一标识符表示，这里编一个
+    @RequiresApi(api = 26)
+    public        String CLIENT_NUM       = "b5b6c47c323940baa8770b0aea94fa97";//客户端ID，一般以客户端唯一标识符表示，这里编一个
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -69,16 +70,21 @@ public class MyMqttService extends Service {
 
     /**
      * 发布 （模拟其他客户端发布消息）
-     *
+     *(使用GBK编码发送)
      * @param message 消息
      */
-    public static void publish(String message) {
+    public static void publish(byte[] message) {
         String topic = PUBLISH_TOPIC;
         Integer qos = 2;
         Boolean retained = false;
+        byte[] message1 = {-71,-2,-71,-2};
         try {
+            int i = 0;
+            for(;i<message.length;i++){
+                Log.i("DebugTag", "发消息q"+ i + ":" +message[i]);
+            }
             //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
-            mqttAndroidClient.publish(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
+            mqttAndroidClient.publish(topic, message1, qos.intValue(), retained.booleanValue());
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -199,7 +205,11 @@ public class MyMqttService extends Service {
         @Override
         public void messageArrived(String topic, MqttMessage message) throws Exception {
             String StrJson = new String(message.getPayload());
-            Log.i(TAG, "收到消息： " + StrJson);
+            Log.i(TAG, "收到消息:" + StrJson);
+            for(int i = 0;i<StrJson.getBytes().length;i++){
+                Log.i(TAG, "消息"+i+":" + StrJson.getBytes()[i]);
+            }
+
             //收到消息，这里弹出Toast表示。如果需要更新UI，可以使用广播或者EventBus进行发送
 
             //发送广播 通知更新UI

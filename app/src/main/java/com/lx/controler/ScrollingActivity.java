@@ -26,6 +26,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
@@ -91,7 +94,9 @@ public class ScrollingActivity extends AppCompatActivity {
                 Snackbar.make(view, "发送指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
-                MyMqttService.publish("重复AB");
+
+                MyMqttService.publish(string2GBK("哈哈AB"));
+
                 //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
                 //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 ///startActivity(intent);
@@ -108,6 +113,35 @@ public class ScrollingActivity extends AppCompatActivity {
         listIBTNAdd.add(ibnAdd1);
         listIBTNDel.add(null);
         listProgress.add(circleProgress_Degree1);
+    }
+
+    public static byte[] string2GBK(String str){
+        try {
+            byte[] a = str.getBytes("GBK");
+            String ab = new String(a,"GBK");
+            Log.i("DebugTag", ab);
+            int i = 0;
+            for(;i<a.length;i++){
+                Log.i("DebugTag", "发消息"+ i + ":" +a[i]);
+            }
+            Log.i("DebugTag", "消息:"+ab);
+            return a;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String byte2hex(byte [] buffer){
+        String h = "";
+        for(int i = 0; i < buffer.length; i++){
+            String temp = Integer.toHexString(buffer[i] & 0xFF);
+            if(temp.length() == 1){
+                temp = "0" + temp;
+            }
+            h = h + temp;
+        }
+        return h;
     }
 
     /**
