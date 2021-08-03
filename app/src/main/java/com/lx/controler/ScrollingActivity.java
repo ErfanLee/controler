@@ -1,6 +1,7 @@
 package com.lx.controler;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.content.BroadcastReceiver;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -19,10 +21,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -87,6 +91,22 @@ public class ScrollingActivity extends AppCompatActivity {
         circleProgress_Degree1.config("temp1","温度1","°C",60,0);
         setSupportActionBar(toolbar);
 
+        FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab1);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "发送指令1", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
+                setBaudRateDialog();
+
+
+                //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
+                //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                ///startActivity(intent);
+            }
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,8 +114,8 @@ public class ScrollingActivity extends AppCompatActivity {
                 Snackbar.make(view, "发送指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
+                setDisplayTimeDialog();
 
-                MyMqttService.publish(string2GBK("哈哈AB"));
 
                 //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
                 //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
@@ -114,22 +134,149 @@ public class ScrollingActivity extends AppCompatActivity {
         listIBTNDel.add(null);
         listProgress.add(circleProgress_Degree1);
     }
+    /**
+     *设置间隔时间弹窗
+     */
+    private void setDisplayTimeDialog() {
+        final EditText editText = new EditText(ScrollingActivity.this);
+        editText.setHint("请输入间隔时间");
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        AlertDialog.Builder inputDialog =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialog.setTitle("显示间隔时间").setView(editText);
+        inputDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                editText.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.sendSetDisplayTime(Integer.parseInt(editText.getText().toString()));
+                    }
+                }).show();
+    }
 
-    public static byte[] string2GBK(String str){
+    /**
+     *设置波特率弹窗
+     */
+    private void setBaudRateDialog() {
+        //设置一个线性布局参数
+        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        //设置一个线性布局控件装下所有下拉框
+        LinearLayout layout=new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(linearLayoutParams);
+
+        //设置串口号控件
+        final  TextView textUSARTx = new TextView(context);
+        textUSARTx.setText(R.string.usart_x);
+        layout.addView(textUSARTx);
+        final  String[] USARTxStrArray = {"1","2","3","4","5","6"};
+        final Spinner spinner0=new Spinner(this);
+        spinner0.setLayoutParams(linearLayoutParams);
+        ArrayAdapter<String> arrayAdapterUsart=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,USARTxStrArray);
+        spinner0.setAdapter(arrayAdapterUsart);
+        layout.addView(spinner0);
+
+        //设置波特率
+        final  TextView textBaud = new TextView(context);
+        textBaud.setText(R.string.baud);
+        layout.addView(textBaud);
+        //波特率下拉框
+        final  String[] BaudStrArray = {"300","600","1200","2400","4800","9600","14400","19200","38400","57600","115200"};
+        final Spinner spinner1=new Spinner(this);
+        spinner1.setLayoutParams(linearLayoutParams);
+        ArrayAdapter<String> arrayAdapterBaud=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,BaudStrArray);
+        spinner1.setAdapter(arrayAdapterBaud);
+        layout.addView(spinner1);
+
+        //设置字节长度
+        final  TextView textLength = new TextView(context);
+        textLength.setText(R.string.length);
+        layout.addView(textLength);
+        //字节长度下拉框
+        final  String[] lengthStrArray = {"5","6","7","8"};
+        final Spinner spinner2=new Spinner(this);
+        spinner2.setLayoutParams(linearLayoutParams);
+        ArrayAdapter<String> arrayAdapterLength=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,lengthStrArray);
+        spinner2.setAdapter(arrayAdapterLength);
+        layout.addView(spinner2);
+
+        //设置停止位
+        final  TextView textStop = new TextView(context);
+        textStop.setText(R.string.stop);
+        layout.addView(textStop);
+        //停止位下拉框
+        final  String[] stopStrArray = {"1","2"};
+        final Spinner spinner3=new Spinner(this);
+        spinner3.setLayoutParams(linearLayoutParams);
+        ArrayAdapter<String> arrayAdapterStop=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,stopStrArray);
+        spinner3.setAdapter(arrayAdapterStop);
+        layout.addView(spinner3);
+
+        //设置校验位
+        final  TextView textCheck = new TextView(context);
+        textCheck.setText(R.string.check);
+        layout.addView(textCheck);
+        //校验位下拉框
+        final  String[] checkStrArray = {"NONE","ODD","EVEN"};//无，奇校验，偶校验
+        final Spinner spinner4=new Spinner(this);
+        spinner4.setLayoutParams(linearLayoutParams);
+        ArrayAdapter<String> arrayAdapterCheck=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,checkStrArray);
+        spinner4.setAdapter(arrayAdapterCheck);
+        layout.addView(spinner4);
+
+        AlertDialog.Builder inputDialog =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialog.setTitle("设置波特率").setView(layout);
+        inputDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                "串口号"+spinner0.getSelectedItem().toString()
+                                +"波特率"+spinner1.getSelectedItem().toString()
+                                +"字节长度"+spinner2.getSelectedItem().toString()
+                                +"停止位"+spinner3.getSelectedItem().toString()
+                                +"校验位"+spinner4.getSelectedItem().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.sendBaud((int)spinner0.getSelectedItemId()+1,(int)spinner1.getSelectedItemId(),(int)spinner2.getSelectedItemId()+5,(int) spinner3.getSelectedItemId()+1,(int)spinner4.getSelectedItemId());
+                    }
+                }).show();
+    }
+
+    /**
+     * int和byte类型互相装换
+     * @param a
+     * @return
+     */
+    private byte int2byte(final int a){
+        byte b = (byte)a;
+        return b;
+    }
+
+    private int byte2int(byte b){
+        int a = b&0xff;
+        return a;
+    }
+
+    public String string2GBK(String str){
+        String rStr = "";
         try {
             byte[] a = str.getBytes("GBK");
-            String ab = new String(a,"GBK");
-            Log.i("DebugTag", ab);
+
             int i = 0;
             for(;i<a.length;i++){
                 Log.i("DebugTag", "发消息"+ i + ":" +a[i]);
+                rStr += a[i];
             }
-            Log.i("DebugTag", "消息:"+ab);
-            return a;
+            Log.i("DebugTag", "消息:"+rStr);
         }catch(Exception e){
             e.printStackTrace();
         }
-        return null;
+        return rStr;
     }
 
     private static String byte2hex(byte [] buffer){

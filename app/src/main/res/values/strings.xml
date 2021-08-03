@@ -24,4 +24,9 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="usart_x">串口号：</string>
+    <string name="baud">波特率</string>
+    <string name="length">字节长度：</string>
+    <string name="stop">停止位：</string>
+    <string name="check">校验位</string>
 </resources>

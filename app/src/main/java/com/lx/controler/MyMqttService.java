@@ -8,13 +8,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
 import org.eclipse.paho.client.mqttv3.IMqttActionListener;
@@ -24,10 +22,6 @@ import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.io.UnsupportedEncodingException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Author       wildma
@@ -68,23 +62,19 @@ public class MyMqttService extends Service {
         mContext.startService(new Intent(mContext, MyMqttService.class));
     }
 
+
     /**
      * 发布 （模拟其他客户端发布消息）
      *(使用GBK编码发送)
      * @param message 消息
      */
-    public static void publish(byte[] message) {
+    public static void publish(String message) {
         String topic = PUBLISH_TOPIC;
         Integer qos = 2;
         Boolean retained = false;
-        byte[] message1 = {-71,-2,-71,-2};
-        try {
-            int i = 0;
-            for(;i<message.length;i++){
-                Log.i("DebugTag", "发消息q"+ i + ":" +message[i]);
-            }
+        try{
             //参数分别为：主题、消息的字节数组、服务质量、是否在服务器保留断开连接后的最后一条消息
-            mqttAndroidClient.publish(topic, message1, qos.intValue(), retained.booleanValue());
+            mqttAndroidClient.publish(topic, message.getBytes(), qos.intValue(), retained.booleanValue());
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -205,9 +195,10 @@ public class MyMqttService extends Service {
         @Override
         public void messageArrived(String topic, MqttMessage message) throws Exception {
             String StrJson = new String(message.getPayload());
+            byte[] bytes = message.getPayload();
             Log.i(TAG, "收到消息:" + StrJson);
-            for(int i = 0;i<StrJson.getBytes().length;i++){
-                Log.i(TAG, "消息"+i+":" + StrJson.getBytes()[i]);
+            for(int i = 0;i<bytes.length;i++){
+                Log.i(TAG, "消息"+i+":" + bytes[i]);
             }
 
             //收到消息，这里弹出Toast表示。如果需要更新UI，可以使用广播或者EventBus进行发送
@@ -218,7 +209,7 @@ public class MyMqttService extends Service {
             intent.putExtra("json",StrJson);
             sendBroadcast(intent);
             //收到其他客户端的消息后，响应给对方告知消息已到达或者消息有问题等
-            response("message arrived");
+            //response("message arrived");
         }
 
         @Override
