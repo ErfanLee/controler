@@ -236,7 +236,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Toast.makeText(ScrollingActivity.this,
-                                "串口号"+spinner0.getSelectedItem().toString()
+                                "串口"+spinner0.getSelectedItem().toString()
                                 +"波特率"+spinner1.getSelectedItem().toString()
                                 +"字节长度"+spinner2.getSelectedItem().toString()
                                 +"停止位"+spinner3.getSelectedItem().toString()
