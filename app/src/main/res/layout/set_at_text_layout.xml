@@ -1,115 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/checkboxLinear"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.lx.controler.ScrollingActivity">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/text_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/project"/>
 
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/text_agreement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/agreement_type"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_agreement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
-
         <CheckBox
             android:id="@+id/chk1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="汉堡"/>
+            android:text="@string/erase"/>
 
         <CheckBox
             android:id="@+id/chk2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="薯条"/>
-
-        <CheckBox
-            android:id="@+id/chk3"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="鸡翅"/>
+            android:text="@string/single_choice"/>
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/chk3"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/send_display"/>
 
         <CheckBox
             android:id="@+id/chk4"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="炸鸡"/>
-
-        <CheckBox
-            android:id="@+id/chk5"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="@string/send_internet"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/rowNum"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="蛋挞"/>
-
-        <CheckBox
-            android:id="@+id/chk6"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:text="@string/rows"/>
+        <EditText
+            android:id="@+id/edit_rowNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="鸡块"/>
+            android:text="@string/display_no"/>
 
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_display_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="start"
         android:orientation="horizontal">
-
-        <CheckBox
-            android:id="@+id/chk7"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="可乐"/>
+            android:text="@string/rows_no"/>
 
-        <CheckBox
-            android:id="@+id/chk8"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="奶茶"/>
-
-        <CheckBox
-            android:id="@+id/chk9"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="咖啡"/>
-
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_row_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_buy"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:text="你的选餐如下："/>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:gravity="start"
+        android:orientation="horizontal">
         <TextView
-            android:id="@+id/food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/before_data"/>
+        <EditText
+            android:id="@+id/edit_before_data"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/before_point"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_before_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/after_point"/>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_after_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
 
-    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/after_data"/>
+        <EditText
+            android:id="@+id/edit_after_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.lx.controler;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,10 +14,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +41,8 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class ScrollingActivity extends AppCompatActivity {
@@ -123,6 +130,16 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
+        FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "发送指令2", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                 setATTextDialog();
+            }
+        });
+
         ImageButton ibnAdd1 = (ImageButton)this.findViewById(R.id.ibn_add1);
         ibnAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,10 +165,19 @@ public class ScrollingActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ScrollingActivity.this,
-                                editText.getText().toString(),
-                                Toast.LENGTH_SHORT).show();
-                        AT_Utils.sendSetDisplayTime(Integer.parseInt(editText.getText().toString()));
+                        String timeStr = editText.getText().toString();
+                        if(timeStr.equals("")) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "输入不能为空",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }else{
+                            Toast.makeText(ScrollingActivity.this,
+                                    editText.getText().toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            AT_Utils.sendSetDisplayTime(Integer.parseInt(editText.getText().toString()));
+                        }
+
                     }
                 }).show();
     }
@@ -246,6 +272,104 @@ public class ScrollingActivity extends AppCompatActivity {
                     }
                 }).show();
     }
+
+
+    /**
+     *设置配置参数弹窗
+     * AT+Text<行数>=<全擦除标志><单选有效标识><字符个数><协议类型><项目代号><1位向显示器发送数据标志><1位向互联网发送数据标志><1位显示屏序号><1位显示行号>
+     */
+    private void setATTextDialog() {
+        //全擦除标志
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.set_at_text_layout,null);
+
+        //设置项目
+        final  String[] projectStrArray = {"风向","风速","温度","湿度","噪音","PM2.5","PM10",
+                "大气压","光照度","雨量"};
+        final Spinner spinner0=configSetView.findViewById(R.id.spinner_project);
+        ArrayAdapter<String> arrayAdapterProject=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,projectStrArray);
+        spinner0.setAdapter(arrayAdapterProject);
+
+        //设置协议类型
+        final  String[] agreementTypeArray = {"modbus协议","自定义16字节协议"};
+        final Spinner spinner1=configSetView.findViewById(R.id.spinner_agreement);
+        ArrayAdapter<String> agreementTypeAdapterProject=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,agreementTypeArray);
+        spinner1.setAdapter(agreementTypeAdapterProject);
+
+        //设置行数
+        final EditText editText = configSetView.findViewById(R.id.edit_rowNum);
+        editText.setHint("请输入行数");
+        editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editText.addTextChangedListener(new TextWatcher(){
+            int l=0;////////记录字符串被删除字符之前，字符串的长度
+            int location=0;//记录光标的位置
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // TODO Auto-generated method stub
+                l=s.length();
+                location=editText.getSelectionStart();
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // TODO Auto-generated method stub
+                Pattern p = Pattern.compile("^(99|[1-9]\\d|\\d)$");
+                Matcher m =p.matcher(s.toString());
+                if(m.find() || ("").equals(s.toString())){
+                    System.out.print("OK!");
+                }else{
+                    System.out.print("False!");
+                    Toast.makeText(context, "请输入正确的数值(0-99)", Toast.LENGTH_SHORT).show();
+                    editText.setText("");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }});
+
+
+        //设置显示屏序号
+        final  String[] displayNoStrArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+        final Spinner spinner2=configSetView.findViewById(R.id.spinner_display_no);
+        ArrayAdapter<String> arrayAdapterDisplayNo=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,displayNoStrArray);
+        spinner2.setAdapter(arrayAdapterDisplayNo);
+
+
+        //设置行号
+        final  String[] rowsNoStrArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
+        final Spinner spinner3=configSetView.findViewById(R.id.spinner_row_no);
+        ArrayAdapter<String> arrayAdapterRowsNo=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,rowsNoStrArray);
+        spinner3.setAdapter(arrayAdapterRowsNo);
+
+        //设置小数点前位数
+        final  String[] beforePointStrArray = {"0","1","2","3","4","5"};//无，奇校验，偶校验
+        final Spinner spinner4=configSetView.findViewById(R.id.spinner_before_point);
+        ArrayAdapter<String> arrayAdapterBeforePoint=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,beforePointStrArray);
+        spinner4.setAdapter(arrayAdapterBeforePoint);
+
+        //设置小数点后位数
+        final   String[] afterPointStrArray = {"0","1","2","3","4","5"};//无，奇校验，偶校验
+        final Spinner spinner5=configSetView.findViewById(R.id.spinner_after_point);
+        ArrayAdapter<String> arrayAdapterAfterPoint=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,afterPointStrArray);
+        spinner5.setAdapter(arrayAdapterAfterPoint);
+
+        AlertDialog.Builder inputDialog =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialog.setTitle("配置参数设置").setView(configSetView);
+        inputDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                     "字节长度",
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                }).show();
+    }
+
+
 
     /**
      * int和byte类型互相装换
