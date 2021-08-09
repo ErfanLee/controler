@@ -40,7 +40,8 @@
     <string name="send_internet">向互联网发送</string>
     <string name="before_data">采集数据前显示:</string>
     <string name="data_format">采集数据格式:</string>
-    <string name="before_point">小数前位数</string>
-    <string name="after_point">小数后位数</string>
+    <string name="before_point">数据位数</string>
+    <string name="after_point">保留小数</string>
     <string name="after_data">采集数据后显示:</string>
+    <string name="zero">0</string>
 </resources>

@@ -26,6 +26,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -158,10 +160,10 @@ public class ScrollingActivity extends AppCompatActivity {
         final EditText editText = new EditText(ScrollingActivity.this);
         editText.setHint("请输入间隔时间");
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        AlertDialog.Builder inputDialog =
+        AlertDialog.Builder inputDialogBuilder =
                 new AlertDialog.Builder(ScrollingActivity.this);
-        inputDialog.setTitle("显示间隔时间").setView(editText);
-        inputDialog.setPositiveButton("确定",
+        inputDialogBuilder.setTitle("显示间隔时间").setView(editText);
+        inputDialogBuilder.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -179,7 +181,36 @@ public class ScrollingActivity extends AppCompatActivity {
                         }
 
                     }
-                }).show();
+                });
+        AlertDialog inputDialog = inputDialogBuilder.create();
+        inputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                final Button btn = ((AlertDialog) dialogInterface).getButton(DialogInterface.BUTTON_POSITIVE);   //*2
+                btn.setEnabled(false);
+                editText.addTextChangedListener(new TextWatcher(){
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // TODO Auto-generated method stub
+                    }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // TODO Auto-generated method stub
+                        if(("").equals(s.toString())){
+                            btn.setEnabled(false);
+                        }
+                        else{
+                            btn.setEnabled(true);
+                        }
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        // TODO Auto-generated method stub
+
+                    }});
+            }
+        });
+        inputDialog.show();
     }
 
     /**
@@ -279,7 +310,7 @@ public class ScrollingActivity extends AppCompatActivity {
      * AT+Text<行数>=<全擦除标志><单选有效标识><字符个数><协议类型><项目代号><1位向显示器发送数据标志><1位向互联网发送数据标志><1位显示屏序号><1位显示行号>
      */
     private void setATTextDialog() {
-        //全擦除标志
+        //设置本弹窗的布局文件
         LayoutInflater inflater = LayoutInflater.from(this);
         View configSetView = inflater.inflate(R.layout.set_at_text_layout,null);
 
@@ -296,45 +327,32 @@ public class ScrollingActivity extends AppCompatActivity {
         ArrayAdapter<String> agreementTypeAdapterProject=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,agreementTypeArray);
         spinner1.setAdapter(agreementTypeAdapterProject);
 
+
         //设置行数
         final EditText editText = configSetView.findViewById(R.id.edit_rowNum);
         editText.setHint("请输入行数");
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-        editText.addTextChangedListener(new TextWatcher(){
-            int l=0;////////记录字符串被删除字符之前，字符串的长度
-            int location=0;//记录光标的位置
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // TODO Auto-generated method stub
-                l=s.length();
-                location=editText.getSelectionStart();
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // TODO Auto-generated method stub
-                Pattern p = Pattern.compile("^(99|[1-9]\\d|\\d)$");
-                Matcher m =p.matcher(s.toString());
-                if(m.find() || ("").equals(s.toString())){
-                    System.out.print("OK!");
-                }else{
-                    System.out.print("False!");
-                    Toast.makeText(context, "请输入正确的数值(0-99)", Toast.LENGTH_SHORT).show();
-                    editText.setText("");
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-                // TODO Auto-generated method stub
-
-            }});
 
 
+
+        //全擦除
+        final CheckBox checkErase = configSetView.findViewById(R.id.chk1);
+        //单选
+        final CheckBox checkSingle = configSetView.findViewById(R.id.chk2);
+        //向显示器发送
+        final CheckBox checkSendDis = configSetView.findViewById(R.id.chk3);
+        //向互联网发送
+        final CheckBox checkSendInt = configSetView.findViewById(R.id.chk4);
         //设置显示屏序号
         final  String[] displayNoStrArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
         final Spinner spinner2=configSetView.findViewById(R.id.spinner_display_no);
         ArrayAdapter<String> arrayAdapterDisplayNo=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,displayNoStrArray);
         spinner2.setAdapter(arrayAdapterDisplayNo);
 
+        //前面
+        final EditText edtTextBefore = configSetView.findViewById(R.id.edit_before_data);
+        //后面
+        final EditText edtTextAfter = configSetView.findViewById(R.id.edit_after_data);
 
         //设置行号
         final  String[] rowsNoStrArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
@@ -354,19 +372,92 @@ public class ScrollingActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapterAfterPoint=new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,afterPointStrArray);
         spinner5.setAdapter(arrayAdapterAfterPoint);
 
-        AlertDialog.Builder inputDialog =
+
+        AlertDialog.Builder inputDialogBuilder =
                 new AlertDialog.Builder(ScrollingActivity.this);
-        inputDialog.setTitle("配置参数设置").setView(configSetView);
-        inputDialog.setPositiveButton("确定",
+        inputDialogBuilder.setTitle("配置参数设置").setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(ScrollingActivity.this,
-                                     "字节长度",
-                                Toast.LENGTH_SHORT).show();
-
+                        if(editText.getText().toString().equals("")) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "输入行数不能为空(0-99)",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }else {
+                            int erase = 0;
+                            int single = 0;
+                            int display = 0;
+                            int internet = 0;
+                            int projectInt = (int) spinner0.getSelectedItemId() + 22;
+                            int agreementInt = (int) spinner1.getSelectedItemId() + 1;
+                            int displayNoInt = (int) spinner2.getSelectedItemId() + 1;
+                            int rowsNoInt = (int) spinner3.getSelectedItemId() + 1;
+                            int beforePointInt = (int) spinner4.getSelectedItemId();
+                            int afterPointInt = (int) spinner5.getSelectedItemId();
+                            if (checkErase.isChecked()) {
+                                erase = 1;
+                            }
+                            if (checkSingle.isChecked()) {
+                                single = 1;
+                            }
+                            if (checkSendDis.isChecked()) {
+                                display = 1;
+                            }
+                            if (checkSendInt.isChecked()) {
+                                internet = 1;
+                            }
+                            Toast.makeText(ScrollingActivity.this,
+                                    "项目类型" + spinner0.getSelectedItem().toString()
+                                            + "擦除标志" + checkErase.isChecked(),
+                                    Toast.LENGTH_SHORT).show();
+                            AT_Utils.sendConfigText(Integer.parseInt(editText.getText().toString()), erase, single, agreementInt, projectInt, display, internet, displayNoInt, rowsNoInt, beforePointInt, afterPointInt, edtTextBefore.getText().toString(), edtTextAfter.getText().toString());
+                        }
                     }
-                }).show();
+                });
+        final AlertDialog inputDialog = inputDialogBuilder.create();
+
+        inputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                final Button btn = ((AlertDialog) dialogInterface).getButton(DialogInterface.BUTTON_POSITIVE);   //*2
+                btn.setEnabled(false);
+                editText.addTextChangedListener(new TextWatcher(){
+                    int l=0;////////记录字符串被删除字符之前，字符串的长度
+                    int location=0;//记录光标的位置
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // TODO Auto-generated method stub
+                        l=s.length();
+                        location=editText.getSelectionStart();
+                    }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // TODO Auto-generated method stub
+                        Pattern p = Pattern.compile("^(99|[1-9]\\d|\\d)$");
+                        Matcher m =p.matcher(s.toString());
+                        if(m.find() ){
+                            System.out.print("OK!");
+                            btn.setEnabled(true);
+                        }else if(("").equals(s.toString())){
+                            btn.setEnabled(false);
+                        }
+                        else{
+                            System.out.print("False!");
+                            Toast.makeText(context, "请输入正确的数值(0-99)", Toast.LENGTH_SHORT).show();
+                            editText.setText("");
+                            btn.setEnabled(false);
+                        }
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        // TODO Auto-generated method stub
+
+                    }});
+            }
+        });
+        inputDialog.show();
     }
 
 
