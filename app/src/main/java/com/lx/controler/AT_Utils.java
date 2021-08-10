@@ -66,10 +66,10 @@ public class AT_Utils {
             int beforePoint = dataNum-afterPoint;//小数点前几位
             String pointFormat = "";
             for(int i = (5-dataNum);i<5;i++){
-                pointFormat = pointFormat+"#"+i;
-                if(i == beforePoint){
+                if((i-(5-dataNum)) == beforePoint){
                     pointFormat += ".";
                 }
+                pointFormat = pointFormat+"#"+i;
             }
 
             final String configStr2 = ""+agreementType+projectNo+sendDisplay+sendInternet+displayNo+rowNo+strGBK1+pointFormat+strGBK2;
