@@ -6,7 +6,7 @@
     <string name="action_setting1">Setting1</string>
     <string name="action_setting2">Setting2</string>
     <string name="action_setting3">Setting3</string>
-    <string name="title_activity_login">welcome</string>
+    <string name="title_activity_login">配置IP信息</string>
 
     <!-- Strings related to login -->
     <string name="username">用户名</string>
@@ -15,7 +15,7 @@
     <string name="tourist">发布主题名</string>
     <string name="response">响应主题名</string>
     <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -44,4 +44,9 @@
     <string name="after_point">保留小数</string>
     <string name="after_data">采集数据后显示:</string>
     <string name="zero">0</string>
+    <string name="address_default">"ws://broker.emqx.io:8083"</string>
+    <string name="username_default">admin</string>
+    <string name="password_default">password</string>
+    <string name="tourist_default">test211</string>
+    <string name="response_default">message_arrived</string>
 </resources>

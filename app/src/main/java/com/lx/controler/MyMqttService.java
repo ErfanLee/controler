@@ -35,9 +35,9 @@ public class MyMqttService extends Service {
     public static final String TAG = "DebugTag";
     private static MqttAndroidClient  mqttAndroidClient;
     private        MqttConnectOptions mMqttConnectOptions;
-    public        String HOST           = "ws://broker.emqx.io:8083";//服务器地址（协议+地址+端口号）
-    public        String USERNAME       = "admin";//用户名
-    public        String PASSWORD       = "password";//密码
+    public static String HOST           = "ws://broker.emqx.io:8083";//服务器地址（协议+地址+端口号）
+    public static String USERNAME       = "admin";//用户名
+    public static String PASSWORD       = "password";//密码
     public static String PUBLISH_TOPIC  = "test211";//发布主题
     public static String RESPONSE_TOPIC = "message_arrived";//响应主题
     @RequiresApi(api = 26)
@@ -60,6 +60,19 @@ public class MyMqttService extends Service {
      */
     public static void startService(Context mContext) {
         mContext.startService(new Intent(mContext, MyMqttService.class));
+    }
+
+    /**
+     * 设置MQTT参数配置
+     */
+    public static void config(String m_HOST,String m_USERNAME, String m_PASSWORD, String m_PUBLISH_TOPIC, String m_RESPONSE_TOPIC)
+    {
+        HOST            = m_HOST;
+        USERNAME        = m_USERNAME;
+        PASSWORD        = m_PASSWORD;
+        PUBLISH_TOPIC   = m_PUBLISH_TOPIC;
+        RESPONSE_TOPIC  = m_RESPONSE_TOPIC;
+
     }
 
 
