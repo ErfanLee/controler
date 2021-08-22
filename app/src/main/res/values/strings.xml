@@ -24,6 +24,16 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    <string name="dis_tag">标签:</string>
+    <string name="dis_name">名称:</string>
+    <string name="dis_unit">单位:</string>
+    <string name="dis_max">最大值:</string>
+    <string name="dis_min">最小值:</string>
+    <string name="dis_warn">预警值:</string>
+    <string name="dis_alrm">报警值:</string>
+
+
     <string name="usart_x">串口号：</string>
     <string name="baud">波特率:</string>
     <string name="length">字节长度：</string>

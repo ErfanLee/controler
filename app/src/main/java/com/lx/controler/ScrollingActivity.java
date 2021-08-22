@@ -61,6 +61,8 @@ public class ScrollingActivity extends AppCompatActivity {
     private int btnIDIndex = 1000;
     // “-”按钮控件List
     private LinkedList<ImageButton> listIBTNDel;
+    // “扳手”按钮控件List
+    private LinkedList<ImageButton> listIBTNCon;
     // 进度条控件List
     private LinkedList<TemperatureProgress> listProgress;
 
@@ -94,6 +96,7 @@ public class ScrollingActivity extends AppCompatActivity {
         contentLinear1 = (LinearLayout)findViewById(R.id.contentLinear1);
         listIBTNAdd = new LinkedList<ImageButton>();
         listIBTNDel = new LinkedList<ImageButton>();
+        listIBTNCon = new LinkedList<ImageButton>();
         listProgress = new LinkedList<TemperatureProgress>();
 
         circleProgress_Degree1 = (TemperatureProgress)findViewById(R.id.circle_progress1);
@@ -142,6 +145,8 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
 
+
+
         ImageButton ibnAdd1 = (ImageButton)this.findViewById(R.id.ibn_add1);
         ibnAdd1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,8 +154,18 @@ public class ScrollingActivity extends AppCompatActivity {
                 addContent(view);
             }
         });
+
+        ImageButton ibnCon = (ImageButton)this.findViewById(R.id.ibn_config);
+        ibnCon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayConfigDialog(view);
+            }
+        });
+
         listIBTNAdd.add(ibnAdd1);
         listIBTNDel.add(null);
+        listIBTNCon.add(ibnCon);
         listProgress.add(circleProgress_Degree1);
     }
     /**
@@ -455,6 +470,102 @@ public class ScrollingActivity extends AppCompatActivity {
                         // TODO Auto-generated method stub
 
                     }});
+            }
+        });
+        inputDialog.show();
+    }
+
+
+    /**
+     * 显示设置弹窗
+     */
+    private void displayConfigDialog(View v) {
+        Toast.makeText(context, "设置显示", Toast.LENGTH_LONG).show();
+
+        if(v == null){return;}
+        // 判断第几个“-”按钮触发了事件
+        int iIndex = -1;
+        for (int i = 0; i < listIBTNCon.size(); i++) {
+            if (listIBTNCon.get(i) == v) {
+                iIndex = i;
+                break;
+            }
+        }
+        final TemperatureProgress progress1 = listProgress.get(iIndex);
+
+
+
+
+
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.set_display,null);
+
+        //设置
+        final EditText editTag = configSetView.findViewById(R.id.edit_tag);
+        final EditText editName = configSetView.findViewById(R.id.edit_name);
+        final EditText editUnit = configSetView.findViewById(R.id.edit_unit);
+        final EditText editMax = configSetView.findViewById(R.id.edit_max);
+        final EditText editMin = configSetView.findViewById(R.id.edit_min);
+        final EditText editWarn = configSetView.findViewById(R.id.edit_warn);
+        final EditText editAlrm = configSetView.findViewById(R.id.edit_alrm);
+
+
+
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle("项目设置显示").setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String tag = editTag.getText().toString();
+                        String name= editName.getText().toString();
+                        String unit= editUnit.getText().toString();
+                        double max = Double.valueOf(editMax.getText().toString());
+                        double min = Double.valueOf(editMin.getText().toString());
+                        progress1.config(tag,name,unit,max,min);
+                    }
+                });
+        final AlertDialog inputDialog = inputDialogBuilder.create();
+        inputDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialogInterface) {
+                final Button btn = ((AlertDialog) dialogInterface).getButton(DialogInterface.BUTTON_POSITIVE);   //*2
+                btn.setEnabled(false);
+                TextWatcher textWatcher1 = new TextWatcher(){
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                        // TODO Auto-generated method stub
+                    }
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        // TODO Auto-generated method stub
+                        if(editTag.getText().toString().equals("")||
+                                editName.getText().toString().equals("")||
+                                editUnit.getText().toString().equals("")||
+                                editMax.getText().toString().equals("")||
+                                editMin.getText().toString().equals("")||
+                                editWarn.getText().toString().equals("")||
+                                editAlrm.getText().toString().equals("")){
+                            btn.setEnabled(false);
+                        }
+                        else{
+                            btn.setEnabled(true);
+                        }
+                    }
+                    @Override
+                    public void afterTextChanged(Editable s) {
+                        // TODO Auto-generated method stub
+
+                    }};
+                editTag.addTextChangedListener(textWatcher1);
+                editName.addTextChangedListener(textWatcher1);
+                editUnit.addTextChangedListener(textWatcher1);
+                editMax.addTextChangedListener(textWatcher1);
+                editMin.addTextChangedListener(textWatcher1);
+                editWarn.addTextChangedListener(textWatcher1);
+                editAlrm.addTextChangedListener(textWatcher1);
             }
         });
         inputDialog.show();
