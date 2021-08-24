@@ -321,6 +321,30 @@ public class ScrollingActivity extends AppCompatActivity {
 
 
     /**
+     * 设置工作模式弹窗
+     */
+    private void setWorkModeDialog() {
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.work_mode,null);
+        final Spinner spinner0=configSetView.findViewById(R.id.spinner_work_mode);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle("配置参数设置").setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "工作模式:" + spinner0.getSelectedItemId(),
+                                    Toast.LENGTH_SHORT).show();
+                    }
+                }).show();
+
+
+    }
+
+    /**
      *设置配置参数弹窗
      * AT+Text<行数>=<全擦除标志><单选有效标识><字符个数><协议类型><项目代号><1位向显示器发送数据标志><1位向互联网发送数据标志><1位显示屏序号><1位显示行号>
      */
@@ -572,51 +596,6 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
-
-    /**
-     * int和byte类型互相装换
-     * @param a
-     * @return
-     */
-    private byte int2byte(final int a){
-        byte b = (byte)a;
-        return b;
-    }
-
-    private int byte2int(byte b){
-        int a = b&0xff;
-        return a;
-    }
-
-    public String string2GBK(String str){
-        String rStr = "";
-        try {
-            byte[] a = str.getBytes("GBK");
-
-            int i = 0;
-            for(;i<a.length;i++){
-                Log.i("DebugTag", "发消息"+ i + ":" +a[i]);
-                rStr += a[i];
-            }
-            Log.i("DebugTag", "消息:"+rStr);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return rStr;
-    }
-
-    private static String byte2hex(byte [] buffer){
-        String h = "";
-        for(int i = 0; i < buffer.length; i++){
-            String temp = Integer.toHexString(buffer[i] & 0xFF);
-            if(temp.length() == 1){
-                temp = "0" + temp;
-            }
-            h = h + temp;
-        }
-        return h;
-    }
-
     /**
      * dp转px
      *
@@ -700,11 +679,12 @@ public class ScrollingActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams txtAlarmParam = new RelativeLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
+
             //靠上放置
-            txtAlarmParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            txtWarnParam.setMargins(0,0,0,dp2px(context,20));
+            //txtAlarmParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
             txtAlarm.setLayoutParams(txtAlarmParam);
             rlBtn.addView(txtAlarm);
+
 
 
             // 4.创建“-”按钮
@@ -715,7 +695,7 @@ public class ScrollingActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             btnDeleteAddParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            btnDeleteAddParam.addRule(RelativeLayout.ALIGN_PARENT_END);
+            btnDeleteAddParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 
             btnDelete.setId(btnIDIndex);
             btnDelete.setOnClickListener(new View.OnClickListener() {
@@ -729,6 +709,30 @@ public class ScrollingActivity extends AppCompatActivity {
             rlBtn.addView(btnDelete, btnDeleteAddParam);
             listIBTNDel.add(iIndex, btnDelete);
 
+            //创建"设置"按钮
+            ImageButton ibnCon = new ImageButton(ScrollingActivity.this);
+            RelativeLayout.LayoutParams btnConParam = new RelativeLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            // 靠右放置
+            btnConParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+
+            // “”按钮放在“”按钮左侧
+            btnConParam.addRule(RelativeLayout.LEFT_OF, btnDelete.getId());
+            ibnCon.setLayoutParams(btnConParam);
+
+            ibnCon.setBackgroundResource(android.R.drawable.ic_menu_preferences);
+
+            ibnCon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    displayConfigDialog(view);
+                }
+            });
+            //按钮放到RelativeLayout里
+            rlBtn.addView(ibnCon);
+            listIBTNCon.add(iIndex,ibnCon);
+
             // 4.创建“+”按钮
             ImageButton btnAdd = new ImageButton(ScrollingActivity.this);
             RelativeLayout.LayoutParams btnAddParam = new RelativeLayout.LayoutParams(
@@ -736,9 +740,8 @@ public class ScrollingActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             // 靠右放置
             btnAddParam.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            btnAddParam.setMargins(0, 0, dp2px(context,12), 0);
             // “”按钮放在“”按钮左侧
-            btnAddParam.addRule(RelativeLayout.LEFT_OF, btnIDIndex);
+            btnAddParam.addRule(RelativeLayout.LEFT_OF, ibnCon.getId());
             btnAdd.setLayoutParams(btnAddParam);
             // 设置属性
             btnAdd.setBackgroundResource(android.R.drawable.ic_menu_add);
@@ -754,6 +757,9 @@ public class ScrollingActivity extends AppCompatActivity {
             // 将“+”按钮放到RelativeLayout里
             rlBtn.addView(btnAdd);
             listIBTNAdd.add(iIndex, btnAdd);
+
+
+
 
 
             // 6.将RelativeLayout放到LinearLayout里
@@ -820,7 +826,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_setting1) {
-            Log.d("action_set","set1");
+            setWorkModeDialog();
             return true;
         }
         if (id == R.id.action_setting2) {

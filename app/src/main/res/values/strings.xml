@@ -59,4 +59,6 @@
     <string name="password_default">password</string>
     <string name="tourist_default">test211</string>
     <string name="response_default">message_arrived</string>
+
+    <string name="work_mode">工作模式:</string>
 </resources>
