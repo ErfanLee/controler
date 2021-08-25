@@ -320,6 +320,8 @@ public class ScrollingActivity extends AppCompatActivity {
     }
 
 
+
+
     /**
      * 设置工作模式弹窗
      */
@@ -338,6 +340,7 @@ public class ScrollingActivity extends AppCompatActivity {
                             Toast.makeText(ScrollingActivity.this,
                                     "工作模式:" + spinner0.getSelectedItemId(),
                                     Toast.LENGTH_SHORT).show();
+                            AT_Utils.sendWorkMode((int) spinner0.getSelectedItemId()+1);
                     }
                 }).show();
 
@@ -826,15 +829,132 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_setting1) {
-            setWorkModeDialog();
+            AT_Utils.sendGetmessgeRequest();
             return true;
         }
         if (id == R.id.action_setting2) {
-            Log.d("action_set","set2");
+            AT_Utils.sendResetRequest();
             return true;
         }
         if (id == R.id.action_setting3) {
-            Log.d("action_set","set3");
+            AT_Utils.sendSleepRequest();
+            return true;
+        }
+        if (id == R.id.action_setting4) {
+            AT_Utils.sendStopRequest();
+            return true;
+        }
+        if (id == R.id.action_setting5) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting6) {
+            return true;
+        }
+        if (id == R.id.action_setting7) {
+            return true;
+        }
+        if (id == R.id.action_setting8) {
+            return true;
+        }
+        if (id == R.id.action_setting9) {
+            return true;
+        }
+        if (id == R.id.action_setting10) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting11) {
+            return true;
+        }
+        if (id == R.id.action_setting12) {
+            return true;
+        }
+        if (id == R.id.action_setting13) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting14) {
+            return true;
+        }
+        if (id == R.id.action_setting15) {
+            return true;
+        }
+        if (id == R.id.action_setting16) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting17) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting18) {
+            return true;
+        }
+        if (id == R.id.action_setting19) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting20) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting21) {
+            return true;
+        }
+        if (id == R.id.action_setting22) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting23) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting24) {
+            return true;
+        }
+        if (id == R.id.action_setting25) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting26) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting27) {
+            return true;
+        }
+        if (id == R.id.action_setting28) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting29) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting30) {
+            return true;
+        }
+        if (id == R.id.action_setting31) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting32) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting33) {
+            return true;
+        }
+        if (id == R.id.action_setting34) {
+            setWorkModeDialog();
+            return true;
+        }
+        if (id == R.id.action_setting35) {
+            AT_Utils.sendGetmessgeRequest();
+            return true;
+        }
+        if (id == R.id.action_setting36) {
             return true;
         }
         return super.onOptionsItemSelected(item);

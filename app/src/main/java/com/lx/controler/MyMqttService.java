@@ -10,6 +10,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -41,7 +42,7 @@ public class MyMqttService extends Service {
     public static String PUBLISH_TOPIC  = "test211";//发布主题
     public static String RESPONSE_TOPIC = "message_arrived";//响应主题
     @RequiresApi(api = 26)
-    public        String CLIENT_NUM       = "b5b6c47c323940baa8770b0aea94fa97";//客户端ID，一般以客户端唯一标识符表示，这里编一个
+    public        String CLIENT_NUM;//客户端ID
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -115,6 +116,7 @@ public class MyMqttService extends Service {
      */
     private void init() {
         String serverURI = HOST; //服务器地址（协议+地址+端口号）
+        CLIENT_NUM = android.os.Build.SERIAL;
         mqttAndroidClient = new MqttAndroidClient(this, serverURI, CLIENT_NUM);
         mqttAndroidClient.setCallback(mqttCallback); //设置监听订阅消息的回调
         mMqttConnectOptions = new MqttConnectOptions();

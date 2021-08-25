@@ -17,4 +17,169 @@
         android:orderInCategory="100"
         android:title="@string/action_setting3"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting4"
+        android:orderInCategory="100"
+        android:title="@string/action_setting4"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting5"
+        android:orderInCategory="100"
+        android:title="@string/action_setting5"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting6"
+        android:orderInCategory="100"
+        android:title="@string/action_setting6"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting7"
+        android:orderInCategory="100"
+        android:title="@string/action_setting7"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting8"
+        android:orderInCategory="100"
+        android:title="@string/action_setting8"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting9"
+        android:orderInCategory="100"
+        android:title="@string/action_setting9"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting10"
+        android:orderInCategory="100"
+        android:title="@string/action_setting10"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting11"
+        android:orderInCategory="100"
+        android:title="@string/action_setting11"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting12"
+        android:orderInCategory="100"
+        android:title="@string/action_setting12"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting13"
+        android:orderInCategory="100"
+        android:title="@string/action_setting13"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting14"
+        android:orderInCategory="100"
+        android:title="@string/action_setting14"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting15"
+        android:orderInCategory="100"
+        android:title="@string/action_setting15"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting16"
+        android:orderInCategory="100"
+        android:title="@string/action_setting16"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting17"
+        android:orderInCategory="100"
+        android:title="@string/action_setting17"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting18"
+        android:orderInCategory="100"
+        android:title="@string/action_setting18"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting19"
+        android:orderInCategory="100"
+        android:title="@string/action_setting19"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting20"
+        android:orderInCategory="100"
+        android:title="@string/action_setting20"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting21"
+        android:orderInCategory="100"
+        android:title="@string/action_setting21"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting22"
+        android:orderInCategory="100"
+        android:title="@string/action_setting22"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting23"
+        android:orderInCategory="100"
+        android:title="@string/action_setting23"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting24"
+        android:orderInCategory="100"
+        android:title="@string/action_setting24"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting25"
+        android:orderInCategory="100"
+        android:title="@string/action_setting25"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting26"
+        android:orderInCategory="100"
+        android:title="@string/action_setting26"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting27"
+        android:orderInCategory="100"
+        android:title="@string/action_setting27"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting28"
+        android:orderInCategory="100"
+        android:title="@string/action_setting28"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting29"
+        android:orderInCategory="100"
+        android:title="@string/action_setting29"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting30"
+        android:orderInCategory="100"
+        android:title="@string/action_setting30"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting31"
+        android:orderInCategory="100"
+        android:title="@string/action_setting31"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting32"
+        android:orderInCategory="100"
+        android:title="@string/action_setting32"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting33"
+        android:orderInCategory="100"
+        android:title="@string/action_setting33"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting34"
+        android:orderInCategory="100"
+        android:title="@string/action_setting34"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting35"
+        android:orderInCategory="100"
+        android:title="@string/action_setting35"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_setting36"
+        android:orderInCategory="100"
+        android:title="@string/action_setting35"
+        app:showAsAction="never" />
 </menu>

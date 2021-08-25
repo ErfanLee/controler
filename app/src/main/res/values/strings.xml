@@ -3,10 +3,44 @@
     <string name="large_text">
         receive
     </string>
-    <string name="action_setting1">Setting1</string>
-    <string name="action_setting2">Setting2</string>
-    <string name="action_setting3">Setting3</string>
+    <string name="action_setting1">发送信息</string>
+    <string name="action_setting2">复位请求</string>
+    <string name="action_setting3">休眠请求</string>
+    <string name="action_setting4">停机请求</string>
+    <string name="action_setting5">工作模式</string>
+    <string name="action_setting6">上云连接模式</string>
+    <string name="action_setting7">主从模式</string>
+    <string name="action_setting8">功能模式</string>
+    <string name="action_setting9">数据传输模式</string>
+    <string name="action_setting10">显示驱动卡</string>
+    <string name="action_setting11">分组数目</string>
+    <string name="action_setting12">上云目的地址</string>
+    <string name="action_setting13">WIFI连接模式</string>
+    <string name="action_setting14">WIFI名称</string>
+    <string name="action_setting15">WIFI密码</string>
+    <string name="action_setting16">数据传输协议</string>
+    <string name="action_setting17">数据组合协议</string>
+    <string name="action_setting18">屏显间隔时间</string>
+    <string name="action_setting19">采集信息间隔</string>
+    <string name="action_setting20">波特率设置</string>
+    <string name="action_setting21">休眠时间设定</string>
+    <string name="action_setting22">分组ID设置</string>
+    <string name="action_setting23">用户ID设置</string>
+    <string name="action_setting24">预警值</string>
+    <string name="action_setting25">报警值</string>
+    <string name="action_setting26">产品名称设置</string>
+    <string name="action_setting27">位置信息</string>
+    <string name="action_setting28">IP地址A设置</string>
+    <string name="action_setting29">IP地址B设置</string>
+    <string name="action_setting30">产品密钥设置</string>
+    <string name="action_setting31">设备名称设置</string>
+    <string name="action_setting32">设备秘钥设置</string>
+    <string name="action_setting33">发布名称</string>
+    <string name="action_setting34">订阅消息名称</string>
+    <string name="action_setting35">询问模块编号</string>
+    <string name="action_setting36">物联信息采集</string>
     <string name="title_activity_login">配置IP信息</string>
+
 
     <!-- Strings related to login -->
     <string name="username">用户名</string>

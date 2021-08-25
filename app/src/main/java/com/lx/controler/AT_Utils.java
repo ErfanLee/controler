@@ -2,6 +2,7 @@ package com.lx.controler;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.Locale;
 
 /**
  * Created by pc01 on 2021/7/31.
@@ -12,7 +13,7 @@ public class AT_Utils {
      * 设置显示刷新时间
      * @param time 刷新时间(ms)
      */
-    public static void sendSetDisplayTime(final int time){
+    static void sendSetDisplayTime(final int time){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -32,12 +33,87 @@ public class AT_Utils {
      * @param stop   停止位
      * @param check  校验位
      */
-    public static void sendBaud(final int USARTx,final int Baudx,final int length,final int stop,final int check){
+    static void sendBaud(final int USARTx,final int Boundx,final int length,final int stop,final int check){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 String command = "AT+Bound=#";
-                command = command + USARTx + Baudx + length + stop + check;
+                command = command + USARTx + Boundx + length + stop + check;
+                MyMqttService.publish(command);
+            }
+        });
+        thread.start();
+    }
+
+    /**
+     * 发送发送信息请求
+     */
+    static void sendGetmessgeRequest(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+GetmessgeRequest";
+                MyMqttService.publish(command);
+            }
+        });
+        thread.start();
+    }
+
+    /**
+     * 发送复位请求
+     */
+    static void sendResetRequest(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+ResetRequest";
+                MyMqttService.publish(command);
+            }
+        });
+        thread.start();
+    }
+
+    /**
+     * 发送休眠请求
+     */
+    static void sendSleepRequest(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+SleepRequest";
+                MyMqttService.publish(command);
+            }
+        });
+        thread.start();
+    }
+
+    /**
+     * 发送停机请求
+     */
+    static void sendStopRequest(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+StopRequest";
+                MyMqttService.publish(command);
+            }
+        });
+        thread.start();
+    }
+
+
+
+
+    /**
+     * 设置工作模式
+     * @param m_mode 工作模式 1 2 3
+     */
+    static void sendWorkMode(final int m_mode){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+Bound=B0";
+                command = command + String.format(Locale.US,"%02d", m_mode);
                 MyMqttService.publish(command);
             }
         });
@@ -56,9 +132,9 @@ public class AT_Utils {
      * @param displayNo 1位显示屏序号
      * @param rowNo 1位显示行号
      */
-    public static void sendConfigText(int rowsNum,int erase,int singleChoice,int agreementType,int projectNo,int sendDisplay,int sendInternet,int displayNo,int rowNo,int dataNum,int afterPoint,String text1,String text2){
+    static void sendConfigText(int rowsNum,int erase,int singleChoice,int agreementType,int projectNo,int sendDisplay,int sendInternet,int displayNo,int rowNo,int dataNum,int afterPoint,String text1,String text2){
 
-        final String configStr1 = "AT+Text"+String.format("%02d", rowsNum) +"="+erase+singleChoice;
+        final String configStr1 = "AT+Text"+String.format(Locale.US,"%02d", rowsNum) +"="+erase+singleChoice;
 
         try {
             String strGBK1 = URLEncoder.encode(text1,"GBK");
@@ -97,6 +173,6 @@ public class AT_Utils {
      * @return String类型的字符串
      */
     private static String int2HexString(int value){
-        return String.format("%08x",value);
+        return String.format(Locale.US,"%08x",value);
     }
 }
