@@ -5,4 +5,67 @@
         <item>模式二</item>
         <item>模式三</item>
     </string-array>
+
+    <string-array name="connect_mode">
+        <item>公网模组</item>
+        <item>网口</item>
+        <item>Wifi</item>
+    </string-array>
+
+    <string-array name="master_slave_mode">
+        <item>主机</item>
+        <item>丛机</item>
+    </string-array>
+
+    <string-array name="function_mode">
+        <item>通用</item>
+        <item>增强</item>
+    </string-array>
+
+    <string-array name="transfer_mode">
+        <item>数据透传</item>
+        <item>定点传输</item>
+        <item>广播式发送</item>
+    </string-array>
+
+    <string-array name="display_mode">
+        <item>中航卡</item>
+        <item>灵信卡</item>
+    </string-array>
+
+    <string-array name="group_number">
+        <item>风向</item>
+        <item></item>
+        <item>风速</item>
+        <item>温度</item>
+        <item>湿度</item>
+        <item>噪音</item>
+        <item>PM2.5</item>
+        <item>PM10</item>
+        <item>大气压</item>
+        <item>光照度</item>
+        <item>雨量</item>
+    </string-array>
+
+    <string-array name="connect_target">
+        <item>阿里云</item>
+        <item>自有服务器</item>
+    </string-array>
+
+    <string-array name="wifi_mode">
+        <item>直连模式</item>
+        <item>LAN模式</item>
+    </string-array>
+
+    <string-array name="transfer_protocol">
+        <item>SPI</item>
+        <item>IIC</item>
+        <item>232</item>
+    </string-array>
+
+    <string-array name="data_tissue">
+        <item>Modbus</item>
+        <item>自定义</item>
+    </string-array>
+
 </resources>

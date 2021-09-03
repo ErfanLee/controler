@@ -126,7 +126,7 @@ public class ScrollingActivity extends AppCompatActivity {
                 Snackbar.make(view, "发送指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
-                setDisplayTimeDialog();
+
 
 
                 //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
@@ -168,16 +168,19 @@ public class ScrollingActivity extends AppCompatActivity {
         listIBTNCon.add(ibnCon);
         listProgress.add(circleProgress_Degree1);
     }
+
     /**
-     *设置间隔时间弹窗
+     * 设置时间间隔弹窗
+     * @param tittle 标题
+     * @param command 设置的指令
      */
-    private void setDisplayTimeDialog() {
+    private void setTimeDialog(String tittle, final String command) {
         final EditText editText = new EditText(ScrollingActivity.this);
-        editText.setHint("请输入间隔时间");
+        editText.setHint(tittle);
         editText.setInputType(InputType.TYPE_CLASS_NUMBER);
         AlertDialog.Builder inputDialogBuilder =
                 new AlertDialog.Builder(ScrollingActivity.this);
-        inputDialogBuilder.setTitle("显示间隔时间").setView(editText);
+        inputDialogBuilder.setTitle("请输入数字").setView(editText);
         inputDialogBuilder.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -192,7 +195,7 @@ public class ScrollingActivity extends AppCompatActivity {
                             Toast.makeText(ScrollingActivity.this,
                                     editText.getText().toString(),
                                     Toast.LENGTH_SHORT).show();
-                            AT_Utils.sendSetDisplayTime(Integer.parseInt(editText.getText().toString()));
+                            AT_Utils.SetTime(Integer.parseInt(editText.getText().toString()),command);
                         }
 
                     }
@@ -314,7 +317,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                 +"停止位"+spinner3.getSelectedItem().toString()
                                 +"校验位"+spinner4.getSelectedItem().toString(),
                                 Toast.LENGTH_SHORT).show();
-                        AT_Utils.sendBaud((int)spinner0.getSelectedItemId()+1,(int)spinner1.getSelectedItemId(),(int)spinner2.getSelectedItemId()+5,(int) spinner3.getSelectedItemId()+1,(int)spinner4.getSelectedItemId());
+                        AT_Utils.Baud((int)spinner0.getSelectedItemId()+1,(int)spinner1.getSelectedItemId(),(int)spinner2.getSelectedItemId()+5,(int) spinner3.getSelectedItemId()+1,(int)spinner4.getSelectedItemId());
                     }
                 }).show();
     }
@@ -332,7 +335,7 @@ public class ScrollingActivity extends AppCompatActivity {
         final Spinner spinner0=configSetView.findViewById(R.id.spinner_work_mode);
         AlertDialog.Builder inputDialogBuilder =
                 new AlertDialog.Builder(ScrollingActivity.this);
-        inputDialogBuilder.setTitle("配置参数设置").setView(configSetView);
+        inputDialogBuilder.setTitle("工作模式设置").setView(configSetView);
         inputDialogBuilder.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -340,11 +343,246 @@ public class ScrollingActivity extends AppCompatActivity {
                             Toast.makeText(ScrollingActivity.this,
                                     "工作模式:" + spinner0.getSelectedItemId(),
                                     Toast.LENGTH_SHORT).show();
-                            AT_Utils.sendWorkMode((int) spinner0.getSelectedItemId()+1);
+                            AT_Utils.WorkMode((int) spinner0.getSelectedItemId()+1);
                     }
                 }).show();
 
 
+    }
+
+
+    private void locationDialog(){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.location,null);
+        final EditText edit0=configSetView.findViewById(R.id.location_x);
+        final EditText edit1=configSetView.findViewById(R.id.location_y);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle("设置位置信息").setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(edit0.getText().toString().equals("")||edit1.getText().toString().equals("")) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "输入不能为空",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        String lc_x = edit0.getText().toString();
+                        String lc_y = edit1.getText().toString();
+                        Toast.makeText(ScrollingActivity.this,
+                                "x:" + edit0.getText().toString()+
+                                "y:" + edit1.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+
+                        AT_Utils.location(lc_x,lc_y);
+                    }
+                }).show();
+    }
+
+    /**
+     * 设置ip指令地址弹窗
+     * @param title 标题
+     * @param command 命令 IPA 或 IPB
+     */
+    private void ipDialog(String title,final String command){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.ip_dialog,null);
+        final IPEditText ipEdit=configSetView.findViewById(R.id.ip_edit);
+        final EditText edit0=configSetView.findViewById(R.id.edit_port);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(ipEdit.getText()==null)
+                        {
+                            return;
+                        }
+                        if(edit0.getText().toString().equals("")){
+                            return;
+                        }
+                        int port = Integer.parseInt(edit0.getText().toString());
+                        Toast.makeText(ScrollingActivity.this,
+                                "ip:" + ipEdit.getText(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.IPA_B(ipEdit.getInt(1),ipEdit.getInt(2),ipEdit.getInt(3),ipEdit.getInt(4),port,command);
+                    }
+                }).show();
+    }
+
+
+
+    /**
+     * 设置id
+     * @param title 标题
+     * @param command 命令
+     */
+    private void setId_Dialog(final String title,final String command){
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.set_id,null);
+        final EditText edit0=configSetView.findViewById(R.id.edit_id);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                title + edit0.getText(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.send4NumberCommand(command,Integer.parseInt(edit0.getText().toString()));
+                    }
+                }).show();
+    }
+
+    /**
+     * spinner组件的选择弹窗
+     * @param title 标题
+     * @param resource 弹窗的layout文件
+     * @param spinnerId spinner组件ID
+     */
+    private void selectSpinnerDialog(final String title,final String command,int resource,int spinnerId){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(resource,null);
+        final Spinner spinner0=configSetView.findViewById(spinnerId);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                title + spinner0.getSelectedItemId(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.sendSelectCommand(command,(int) spinner0.getSelectedItemId()+1);
+                    }
+                }).show();
+    }
+
+    /**
+     * spinner组件的选择弹窗
+     * @param title 标题
+     * @param resource 弹窗的layout文件
+     * @param spinnerId spinner组件ID
+     * @param index 下标起始值
+     */
+    private void selectSpinnerDialog(final String title,final String command,int resource,int spinnerId,final int index){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(resource,null);
+        final Spinner spinner0=configSetView.findViewById(spinnerId);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                title + spinner0.getSelectedItemId(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.sendSelectCommand(command,(int) spinner0.getSelectedItemId()+index);
+                    }
+                }).show();
+    }
+
+    /**
+     * EditText 文本参数弹窗
+     * @param title 标题
+     * @param resource 弹窗的layout文件
+     * @param editTextID EditText组件ID
+     */
+    private void EditTextDialog(final String title,final String command,int resource,int editTextID){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(resource,null);
+        final EditText edit0=configSetView.findViewById(editTextID);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(ScrollingActivity.this,
+                                title + edit0.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.textCommand(command,edit0.getText().toString());
+                    }
+                }).show();
+    }
+
+    /**
+     * EditText 文本参数弹窗
+     * @param title 标题
+     * @param command 命令
+     */
+    private void EditTextDialog(final String title,final String command){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.edit_text_dialog,null);
+        final EditText edit0=configSetView.findViewById(R.id.edit_text_dialog);
+        edit0.setHint("请输入");
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(edit0.getText().toString().equals("")) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "输入不能为空",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(ScrollingActivity.this,
+                                title + edit0.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.textCommand(command,edit0.getText().toString());
+                    }
+                }).show();
+    }
+
+    /**
+     * spinner与edit参数弹窗
+     * @param title 标题
+     * @param command 指令
+     */
+    private void editSpinnerDialog(final String title,final String command){
+        //设置本弹窗的布局文件
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View configSetView = inflater.inflate(R.layout.warn_alarm,null);
+        final EditText edit0=configSetView.findViewById(R.id.edit_warn_alarm);
+        final Spinner spinner0=configSetView.findViewById(R.id.spinner_project_warn_alarm);
+        AlertDialog.Builder inputDialogBuilder =
+                new AlertDialog.Builder(ScrollingActivity.this);
+        inputDialogBuilder.setTitle(title).setView(configSetView);
+        inputDialogBuilder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(edit0.getText().toString().equals("")) {
+                            Toast.makeText(ScrollingActivity.this,
+                                    "输入不能为空",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Toast.makeText(ScrollingActivity.this,
+                                title + edit0.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        AT_Utils.WarningAlarmValue((int)spinner0.getSelectedItemId()+21,Integer.parseInt(edit0.getText().toString()),command);
+                    }
+                }).show();
     }
 
     /**
@@ -454,7 +692,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                     "项目类型" + spinner0.getSelectedItem().toString()
                                             + "擦除标志" + checkErase.isChecked(),
                                     Toast.LENGTH_SHORT).show();
-                            AT_Utils.sendConfigText(Integer.parseInt(editText.getText().toString()), erase, single, agreementInt, projectInt, display, internet, displayNoInt, rowsNoInt, beforePointInt, afterPointInt, edtTextBefore.getText().toString(), edtTextAfter.getText().toString());
+                            AT_Utils.ConfigText(Integer.parseInt(editText.getText().toString()), erase, single, agreementInt, projectInt, display, internet, displayNoInt, rowsNoInt, beforePointInt, afterPointInt, edtTextBefore.getText().toString(), edtTextAfter.getText().toString());
                         }
                     }
                 });
@@ -829,19 +1067,19 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_setting1) {
-            AT_Utils.sendGetmessgeRequest();
+            AT_Utils.GetmessgeRequest();
             return true;
         }
         if (id == R.id.action_setting2) {
-            AT_Utils.sendResetRequest();
+            AT_Utils.ResetRequest();
             return true;
         }
         if (id == R.id.action_setting3) {
-            AT_Utils.sendSleepRequest();
+            AT_Utils.SleepRequest();
             return true;
         }
         if (id == R.id.action_setting4) {
-            AT_Utils.sendStopRequest();
+            AT_Utils.StopRequest();
             return true;
         }
         if (id == R.id.action_setting5) {
@@ -849,113 +1087,127 @@ public class ScrollingActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.action_setting6) {
+            selectSpinnerDialog("上云连接模式","ConnectMode",R.layout.connect_mode,R.id.spinner_connect_mode);
             return true;
         }
         if (id == R.id.action_setting7) {
+            selectSpinnerDialog("主从模式","MasterSlaveMode",R.layout.master_slave_mode,R.id.spinner_master_slave_mode);
             return true;
         }
         if (id == R.id.action_setting8) {
+            selectSpinnerDialog("功能模式","FunctionMode",R.layout.function_mode,R.id.spinner_function_mode);
             return true;
         }
         if (id == R.id.action_setting9) {
+            selectSpinnerDialog("数据传输模式","TransferMode",R.layout.transfer_mode,R.id.spinner_transfer_mode);
             return true;
         }
         if (id == R.id.action_setting10) {
-            setWorkModeDialog();
+            selectSpinnerDialog("显示驱动卡","DisplayMode",R.layout.display_mode,R.id.spinner_display_mode);
             return true;
         }
         if (id == R.id.action_setting11) {
+            selectSpinnerDialog("分组数目","GroupNumber",R.layout.group_number,R.id.spinner_group_number,21);
             return true;
         }
         if (id == R.id.action_setting12) {
+            selectSpinnerDialog("上云目的地址","ConnectTarget",R.layout.connect_target,R.id.spinner_connect_target);
             return true;
         }
         if (id == R.id.action_setting13) {
-            setWorkModeDialog();
+            selectSpinnerDialog("wifi连接模式","WifiMode",R.layout.wifi_mode,R.id.spinner_wifi_mode);
             return true;
         }
         if (id == R.id.action_setting14) {
+            EditTextDialog("WIFI名称","WifiName",R.layout.wifi_name,R.id.edit_wifi_name);
             return true;
         }
         if (id == R.id.action_setting15) {
+            EditTextDialog("WIFI密码","WifiPassword",R.layout.wifi_password,R.id.edit_wifi_password);
             return true;
         }
         if (id == R.id.action_setting16) {
-            setWorkModeDialog();
+            selectSpinnerDialog("数据传输协议","TransferProtocol",R.layout.transfer_protocol,R.id.spinner_transfer_protocol);
             return true;
         }
         if (id == R.id.action_setting17) {
-            AT_Utils.sendGetmessgeRequest();
+            selectSpinnerDialog("数据组合协议","DataTissue",R.layout.data_tissue,R.id.spinner_data_tissue);
             return true;
         }
         if (id == R.id.action_setting18) {
+            setTimeDialog("屏显间隔时间","DisplayTime");
             return true;
         }
         if (id == R.id.action_setting19) {
-            setWorkModeDialog();
+            setTimeDialog("上云间隔时间","SendToInternetTime");
             return true;
         }
         if (id == R.id.action_setting20) {
-            AT_Utils.sendGetmessgeRequest();
+            setBaudRateDialog();
             return true;
         }
         if (id == R.id.action_setting21) {
+            setTimeDialog("休眠时间设定","SleepTime");
             return true;
         }
         if (id == R.id.action_setting22) {
-            setWorkModeDialog();
+            setId_Dialog("分组ID设置","GroupID");
             return true;
         }
         if (id == R.id.action_setting23) {
-            AT_Utils.sendGetmessgeRequest();
+            setId_Dialog("用户ID设置","UnitID");
             return true;
         }
         if (id == R.id.action_setting24) {
+            editSpinnerDialog("预警值","WarningValue");
             return true;
         }
         if (id == R.id.action_setting25) {
-            setWorkModeDialog();
+            editSpinnerDialog("报警值","AlarmValue");
             return true;
         }
         if (id == R.id.action_setting26) {
-            AT_Utils.sendGetmessgeRequest();
+            EditTextDialog("产品名称设置","ProduceName");
             return true;
         }
         if (id == R.id.action_setting27) {
+            locationDialog();
             return true;
         }
         if (id == R.id.action_setting28) {
-            setWorkModeDialog();
+            ipDialog("IP地址A设置","IPA");
             return true;
         }
         if (id == R.id.action_setting29) {
-            AT_Utils.sendGetmessgeRequest();
+            ipDialog("IP地址B设置","IPB");
             return true;
         }
         if (id == R.id.action_setting30) {
+            EditTextDialog("产品密钥设置","ProduceKey",R.layout.product_key,R.id.product_key);
             return true;
         }
         if (id == R.id.action_setting31) {
-            setWorkModeDialog();
+            EditTextDialog("设备名称设置","DeviceName",R.layout.device_name,R.id.device_name);
             return true;
         }
         if (id == R.id.action_setting32) {
-            AT_Utils.sendGetmessgeRequest();
+            EditTextDialog("设备秘钥设置","Devicesecret",R.layout.device_key,R.id.device_key);
             return true;
         }
         if (id == R.id.action_setting33) {
+            EditTextDialog("发布名称名称","PubTopic");
             return true;
         }
         if (id == R.id.action_setting34) {
-            setWorkModeDialog();
+            EditTextDialog("订阅消息名称","SubTopic");
             return true;
         }
         if (id == R.id.action_setting35) {
-            AT_Utils.sendGetmessgeRequest();
+            AT_Utils.IMEI();
             return true;
         }
         if (id == R.id.action_setting36) {
-            return true;
+            setATTextDialog();
         }
         return super.onOptionsItemSelected(item);
     }

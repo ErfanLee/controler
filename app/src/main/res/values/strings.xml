@@ -67,6 +67,11 @@
     <string name="dis_warn">预警值:</string>
     <string name="dis_alrm">报警值:</string>
 
+    <string name="location_x">经度</string>
+    <string name="location_y">纬度</string>
+
+    <string name="port">端口号</string>
+
 
     <string name="usart_x">串口号：</string>
     <string name="baud">波特率:</string>
@@ -95,4 +100,36 @@
     <string name="response_default">message_arrived</string>
 
     <string name="work_mode">工作模式:</string>
+    <string name="connect_mode">连接模式:</string>
+    <string name="master_slave_mode">主从模式:</string>
+    <string name="function_mode">功能模式:</string>
+    <string name="transfer_mode">数据传输模式:</string>
+    <string name="display_mode">显示驱动卡:</string>
+    <string name="group_number">分组数目:</string>
+    <string name="connect_target">上云目的地址:</string>
+    <string name="wifi_mode">WIFI连接模式:</string>
+    <string name="wifi_name">WIFI名称:</string>
+    <string name="wifi_password">WIFI密码:</string>
+    <string name="transfer_protocol">数据传输协议:</string>
+    <string name="data_tissue">数据组合协议:</string>
+    <string name="action_setting118">屏显间隔时间:</string>
+    <string name="action_setting119">采集信息间隔:</string>
+    <string name="action_setting120">波特率设置:</string>
+    <string name="action_setting121">休眠时间设定:</string>
+    <string name="set_id">ID设置:</string>
+    <string name="action_setting122">分组ID设置:</string>
+    <string name="action_setting123">用户ID设置:</string>
+    <string name="action_setting124">预警值:</string>
+    <string name="action_setting125">报警值:</string>
+    <string name="action_setting126">产品名称设置:</string>
+    <string name="action_setting127">位置信息:</string>
+    <string name="action_setting128">IP地址A设置:</string>
+    <string name="action_setting129">IP地址B设置:</string>
+    <string name="product_key">产品密钥设置:</string>
+    <string name="device_name">设备名称设置:</string>
+    <string name="device_key">设备秘钥设置:</string>
+    <string name="action_setting133">发布名称:</string>
+    <string name="action_setting134">订阅消息名称:</string>
+    <string name="action_setting135">询问模块编号:</string>
+    <string name="action_setting136">物联信息采集:</string>
 </resources>
