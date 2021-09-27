@@ -52,6 +52,7 @@
         <item>自有服务器</item>
     </string-array>
 
+
     <string-array name="wifi_mode">
         <item>直连模式</item>
         <item>LAN模式</item>
@@ -66,6 +67,20 @@
     <string-array name="data_tissue">
         <item>Modbus</item>
         <item>自定义</item>
+    </string-array>
+
+    <string-array name="bound">
+        <item>300</item>
+        <item>600</item>
+        <item>1200</item>
+        <item>2400</item>
+        <item>4800</item>
+        <item>9600</item>
+        <item>14400</item>
+        <item>19200</item>
+        <item>38400</item>
+        <item>57600</item>
+        <item>115200</item>
     </string-array>
 
 </resources>

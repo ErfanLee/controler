@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">物联网控制端</string>
+    <string name="gate_way">物联网关设置</string>
     <string name="large_text">
         receive
     </string>
@@ -46,7 +47,7 @@
     <string name="username">用户名</string>
     <string name="address">ip地址</string>
     <string name="password">密码</string>
-    <string name="tourist">发布主题名</string>
+    <string name="tourist">订阅主题名</string>
     <string name="response">响应主题名</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">登录</string>
@@ -86,7 +87,7 @@
     <string name="erase">全擦除   </string>
     <string name="single_choice">单选有效</string>
     <string name="send_display">向显示器发送</string>
-    <string name="send_internet">向互联网发送</string>
+    <string name="send_internet">向互联网发送:</string>
     <string name="before_data">采集数据前显示:</string>
     <string name="data_format">采集数据格式:</string>
     <string name="before_point">数据位数</string>
@@ -112,13 +113,14 @@
     <string name="wifi_password">WIFI密码:</string>
     <string name="transfer_protocol">数据传输协议:</string>
     <string name="data_tissue">数据组合协议:</string>
-    <string name="action_setting118">屏显间隔时间:</string>
-    <string name="action_setting119">采集信息间隔:</string>
-    <string name="action_setting120">波特率设置:</string>
-    <string name="action_setting121">休眠时间设定:</string>
+    <string name="display_time">屏显间隔时间:</string>
+    <string name="internet_time">上云间隔时间:</string>
+    <string name="message_time">采集信息间隔:</string>
+    <string name="bound">波特率设置:</string>
+    <string name="sleep_time">休眠时间设定:</string>
     <string name="set_id">ID设置:</string>
-    <string name="action_setting122">分组ID设置:</string>
-    <string name="action_setting123">用户ID设置:</string>
+    <string name="group_id">分组ID设置:</string>
+    <string name="user_id">用户ID设置:</string>
     <string name="action_setting124">预警值:</string>
     <string name="action_setting125">报警值:</string>
     <string name="action_setting126">产品名称设置:</string>
