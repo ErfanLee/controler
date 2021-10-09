@@ -11,7 +11,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +34,7 @@
             android:textOff="Mqtt"
             android:showText="true" />
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fab_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
@@ -278,7 +279,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="8"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="SPS2"/>
 
             <ImageButton
                 android:id="@+id/ibn_wifi_name"
@@ -304,7 +306,8 @@
                 android:layout_height="wrap_content"
                 android:ems="8"
                 android:inputType="textPassword"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="12345678"/>
 
             <ImageButton
                 android:id="@+id/ibn_wifi_password"
@@ -378,7 +381,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="8"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="36000"/>
 
             <ImageButton
                 android:id="@+id/ibn_display_time"
@@ -404,7 +408,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:ems="8"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="36000"/>
 
             <ImageButton
                 android:id="@+id/ibn_internet_time"
@@ -430,7 +435,8 @@
                 android:layout_height="wrap_content"
                 android:ems="8"
                 android:inputType="number"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="36000"/>
 
             <ImageButton
                 android:id="@+id/ibn_message_time"
@@ -480,7 +486,8 @@
                 android:layout_height="wrap_content"
                 android:ems="8"
                 android:inputType="number"
-                android:maxLength="8" />
+                android:maxLength="8"
+                android:text="36000"/>
 
             <ImageButton
                 android:id="@+id/ibn_sleep_time"
@@ -506,7 +513,8 @@
                 android:layout_height="wrap_content"
                 android:ems="4"
                 android:inputType="number"
-                android:maxLength="4" />
+                android:maxLength="4"
+                android:text="01"/>
 
             <ImageButton
                 android:id="@+id/ibn_group_id"
@@ -532,7 +540,8 @@
                 android:layout_height="wrap_content"
                 android:ems="4"
                 android:inputType="number"
-                android:maxLength="4" />
+                android:maxLength="4"
+                android:text="05"/>
 
             <ImageButton
                 android:id="@+id/ibn_user_id"

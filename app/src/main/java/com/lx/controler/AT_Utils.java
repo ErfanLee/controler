@@ -1,5 +1,13 @@
 package com.lx.controler;
 
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Locale;
@@ -10,6 +18,57 @@ import java.util.Locale;
 
 public class AT_Utils {
 
+    public static boolean isMQTT  = true;
+
+    static void sendByWifi(final String message){
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try
+                {
+                    //创建Socket
+                    Socket socket = new Socket("192.168.0.104",8210);
+                    //向服务器端发送消息
+                    PrintWriter out = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
+                    out.println(message);
+
+                    //接收来自服务器端的消息
+                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                    String msg = br.readLine();
+
+                    if ( msg != null )
+                    {
+                        Log.i("DebugTag", "msg");
+                    }
+                    else
+                    {
+                    }
+                    //关闭流
+                    out.close();
+                    br.close();
+                    //关闭Socket
+                    socket.close();
+                }
+                catch (Exception e)
+                {
+                    // TODO: handle exception
+                    Log.e("DebugTag", e.toString());
+                }
+            }
+        }).start();
+
+
+    }
+
+    static void sendAtCommand(final String com){
+        if(isMQTT) {
+            MyMqttService.publish(com);
+        }else
+        {
+            sendByWifi(com);
+        }
+    }
+
     /**
      * 发送单选类型的指令
      * @param m_command 指令内容
@@ -19,9 +78,10 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+"+m_command+"=B0";
+                String command = "AT+"+m_command+"=@";
                 command = command + String.format(Locale.US,"%02d", x);
-                MyMqttService.publish(command);
+
+                    sendAtCommand(command);
             }
         });
         thread.start();
@@ -36,9 +96,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+"+ m_command +"=B0";
+                String command = "AT+"+ m_command +"=@";
                 command = command + String.format(Locale.US,"%04d", x);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -55,7 +115,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+"+m_command+"=#";
                 command = command + text;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -69,9 +129,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+"+ m_command +"=B0";
+                String command = "AT+"+ m_command +"=@";
                 command += int2HexString(time);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -86,9 +146,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+"+m_command+"="+project+"B0";
+                String command = "AT+"+m_command+"="+project+"@";
                 command += int2HexString(value);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -110,7 +170,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+Bound=#";
                 command = command + USARTx + Boundx + length + stop + check;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -124,7 +184,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+GetmessgeRequest";
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -138,7 +198,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+ResetRequest";
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -152,7 +212,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+SleepRequest";
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -166,7 +226,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+StopRequest";
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -183,9 +243,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WorkMode=B0";
+                String command = "AT+WorkMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -199,9 +259,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+ConnectMode=B0";
+                String command = "AT+ConnectMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -215,25 +275,25 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+MasterSlaveMode=B0";
+                String command = "AT+MasterSlaveMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
     }
 
     /**
-     * 设置主从模式
+     * 设置功能模式
      * @param m_mode 1：主机；2：从机
      */
     static void FunctionMode(final int m_mode){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+MasterSlaveMode=B0";
+                String command = "AT+MasterSlaveMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -247,9 +307,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+TransferMode=B0";
+                String command = "AT+TransferMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -265,9 +325,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+DisplayMode=B0";
+                String command = "AT+DisplayMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -281,9 +341,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+GroupNumber=B0";
+                String command = "AT+GroupNumber=@";
                 command = command + String.format(Locale.US,"%02d", m_project);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -297,9 +357,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+ConnectTarget=B0";
+                String command = "AT+ConnectTarget=@";
                 command = command + String.format(Locale.US,"%02d", m_target);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -313,9 +373,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WifiMode=B0";
+                String command = "AT+WifiMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -329,9 +389,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WifiName=B0";
+                String command = "AT+WifiName=@";
                 command = command + m_name;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -344,9 +404,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WifiPassword=B0";
+                String command = "AT+WifiPassword=@";
                 command = command + m_password;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -360,13 +420,27 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+TransferProtocol=B0";
+                String command = "AT+TransferProtocol=@";
                 command = command + String.format(Locale.US,"%02d", m_protocol);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
     }
+
+    static void DataTissue(final int m_dataTissue){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+DataTissue=@";
+                command = command + String.format(Locale.US,"%02d", m_dataTissue);
+                sendAtCommand(command);
+            }
+        });
+        thread.start();
+    }
+
+
 
     /**
      * 设置上云间隔时间
@@ -376,9 +450,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+SendToInternetTime=B0";
+                String command = "AT+SendToInternetTime=@";
                 command += int2HexString(time);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -392,9 +466,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+GetMegTime=B0";
+                String command = "AT+GetMegTime=@";
                 command += int2HexString(time);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -408,9 +482,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+SleepTime=B0";
+                String command = "AT+SleepTime=@";
                 command += int2HexString(time);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -424,9 +498,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+GroupID=B0";
+                String command = "AT+GroupID=@";
                 command = command + String.format(Locale.US,"%04d", ID);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -440,9 +514,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+UnitID=B0";
+                String command = "AT+UnitID=@";
                 command = command + String.format(Locale.US,"%04d", ID);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -456,9 +530,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WarningValue="+project+"B0";
+                String command = "AT+WarningValue="+project+"@";
                 command += int2HexString(value);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -472,9 +546,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+AlarmValue="+project+"B0";
+                String command = "AT+AlarmValue="+project+"@";
                 command += int2HexString(value);
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -488,9 +562,9 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+ProduceName=B0";
+                String command = "AT+ProduceName=@";
                 command = command + m_name;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -507,7 +581,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+location=#";
                 command = command + strX + "_" + strY;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -532,7 +606,7 @@ public class AT_Utils {
                 String ip4Str = String.format(Locale.US,"%03d", ip4);
                 String portStr= String.format(Locale.US,"%05d", port);
                 command = command + ip1Str + ip2Str + ip3Str + ip4Str + portStr;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -557,7 +631,7 @@ public class AT_Utils {
                 String ip4Str = String.format(Locale.US,"%03d", ip4);
                 String portStr= String.format(Locale.US,"%05d", port);
                 command = command + ip1Str + ip2Str + ip3Str + ip4Str + portStr;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -574,7 +648,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+ProduceKey=#";
                 command = command + m_key;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -590,7 +664,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+DeviceName=#";
                 command = command + m_name;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -606,7 +680,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+Devicesecret=#";
                 command = command + m_secret;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -622,7 +696,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+PubTopic=#";
                 command = command + m_topic;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -638,7 +712,7 @@ public class AT_Utils {
             public void run() {
                 String command = "AT+SubTopic=#";
                 command = command + m_topic;
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -652,7 +726,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+IMEI?";
-                MyMqttService.publish(command);
+                sendAtCommand(command);
             }
         });
         thread.start();
@@ -697,7 +771,7 @@ public class AT_Utils {
                 public void run() {
                     String command = configStr1 + bytesNum + configStr2;
 
-                    MyMqttService.publish(command);
+                    sendAtCommand(command);
                 }
             });
             thread.start();
