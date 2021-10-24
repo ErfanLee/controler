@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:text="@string/dis_alrm"/>
         <EditText
-            android:id="@+id/edit_alrm"
+            android:id="@+id/edit_alarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"/>

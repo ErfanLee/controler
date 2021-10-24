@@ -21,6 +21,9 @@ public class ConfigActivity extends AppCompatActivity{
     public static Context context;//上下文
 
     /*需要设置的物联网关参数*/
+    String Ip_addr;
+    int Ip_port;
+
     int WorkMode;
     int ConnectMode;
     int MasterSlaveMode;
@@ -32,14 +35,24 @@ public class ConfigActivity extends AppCompatActivity{
     int WifiMode;
     int TransferProtocol;
     int DataTissue;
-
+    int DisplayTime;
     int SendToInternetTime;
     int GetMegTime;
+    int Usart;
+    int Bound;
+    int Byte_length;
+    int Stop_bit;
+    int Check_bit;
     int SleepTime;
     int GroupID;
     int UnitID;
+    int Project_warn;
+    int Warn_value;
+    int Project_alarm;
+    int Alarm_value;
     String WifiName;
     String WifiPassword;
+    String ProduceName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +67,9 @@ public class ConfigActivity extends AppCompatActivity{
 
     private void initCtrl() {
 
+        //设置IP地址
+        final IPEditText ip_edit_addr = findViewById(R.id.ip_edit_addr);
+        final EditText   edit_ip_port = findViewById(R.id.edit_ip_port);
         //工作模式
         final Spinner spinner_work_mode           = findViewById(R.id.spinner_work_mode);
         //连接模式
@@ -81,17 +97,31 @@ public class ConfigActivity extends AppCompatActivity{
         //数据组合协议
         final Spinner spinner_data_tissue         = findViewById(R.id.spinner_data_tissue);
         //屏显间隔时间
+        final EditText edit_display_time          = findViewById(R.id.edit_display_time);
         //上云间隔时间
+        final EditText edit_internet_time         = findViewById(R.id.edit_internet_time);
         //采集信息间隔
-
+        final EditText edit_message_time          = findViewById(R.id.edit_message_time);
         //波特率设置
-
+        final Spinner spinner_usart               = findViewById(R.id.spinner_usart);
+        final Spinner spinner_bound               = findViewById(R.id.spinner_bound);
+        final Spinner spinner_byte_length         = findViewById(R.id.spinner_byte_length);
+        final Spinner spinner_stop_bit            = findViewById(R.id.spinner_stop_bit);
+        final Spinner spinner_check_bit           = findViewById(R.id.spinner_check_bit);
         //休眠时间设定
+        final EditText edit_sleep_time            = findViewById(R.id.edit_sleep_time);
         //分组ID设置
+        final EditText edit_group_id              = findViewById(R.id.edit_group_id);
         //用户ID设置
+        final EditText edit_user_id               = findViewById(R.id.edit_user_id);
         //预警值
+        final Spinner  spinner_project_warn       = findViewById(R.id.spinner_project_warn);
+        final EditText edit_warn                  = findViewById(R.id.edit_warn_value);
         //报警值
+        final Spinner  spinner_project_alarm      = findViewById(R.id.spinner_project_alarm);
+        final EditText edit_alarm                 = findViewById(R.id.edit_alarm_value);
         //产品名称设置
+        final EditText edit_produce_name          = findViewById(R.id.edit_produce_name);
         //位置信息
         //IP地址A设置
         //IP地址B设置
@@ -110,21 +140,41 @@ public class ConfigActivity extends AppCompatActivity{
                 Snackbar.make(view, "fab_send", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                WorkMode        = (int)spinner_work_mode.getSelectedItemId()+1;
-                ConnectMode     = (int)spinner_connect_mode.getSelectedItemId()+1;
-                MasterSlaveMode = (int)spinner_master_slave_mode.getSelectedItemId()+1;
-                FunctionMode    = (int)spinner_function_mode.getSelectedItemId()+1;
-                TransferMode    = (int)spinner_transfer_mode.getSelectedItemId()+1;
-                DisplayMode     = (int)spinner_display_mode.getSelectedItemId()+1;
-                GroupNumber     = (int)spinner_group_number.getSelectedItemId()+1;
-                ConnectTarget   = (int)spinner_connect_target.getSelectedItemId()+1;
-                WifiMode        = (int)spinner_wifi_mode.getSelectedItemId()+1;
-                TransferProtocol= (int)spinner_transfer_protocol.getSelectedItemId()+1;
-                DataTissue      = (int)spinner_data_tissue.getSelectedItemId()+1;
 
-                WifiName        = edit_wifi_name.getText().toString();
-                WifiPassword    = edit_wifi_password.getText().toString();
+                Ip_addr             = ip_edit_addr.getText();
+                Ip_port             = Integer.parseInt(edit_ip_port.getText().toString());
 
+                WorkMode            = (int)spinner_work_mode.getSelectedItemId()+1;
+                ConnectMode         = (int)spinner_connect_mode.getSelectedItemId()+1;
+                MasterSlaveMode     = (int)spinner_master_slave_mode.getSelectedItemId()+1;
+                FunctionMode        = (int)spinner_function_mode.getSelectedItemId()+1;
+                TransferMode        = (int)spinner_transfer_mode.getSelectedItemId()+1;
+                DisplayMode         = (int)spinner_display_mode.getSelectedItemId()+1;
+                GroupNumber         = (int)spinner_group_number.getSelectedItemId()+1;
+                ConnectTarget       = (int)spinner_connect_target.getSelectedItemId()+1;
+                WifiMode            = (int)spinner_wifi_mode.getSelectedItemId()+1;
+                WifiName            = edit_wifi_name.getText().toString();
+                WifiPassword        = edit_wifi_password.getText().toString();
+                TransferProtocol    = (int)spinner_transfer_protocol.getSelectedItemId()+1;
+                DataTissue          = (int)spinner_data_tissue.getSelectedItemId()+1;
+                DisplayTime         = Integer.parseInt(edit_display_time.getText().toString());
+                SendToInternetTime  = Integer.parseInt(edit_internet_time.getText().toString());
+                GetMegTime          = Integer.parseInt(edit_message_time.getText().toString());
+                Usart               = (int)spinner_usart.getSelectedItemId()+1;
+                Bound               = (int)spinner_bound.getSelectedItemId();
+                Byte_length         = (int)spinner_byte_length.getSelectedItemId()+5;
+                Stop_bit            = (int)spinner_stop_bit.getSelectedItemId()+1;
+                Check_bit           = (int)spinner_check_bit.getSelectedItemId()+1;
+                SleepTime           = Integer.parseInt(edit_sleep_time.getText().toString());
+                GroupID             = Integer.parseInt(edit_group_id.getText().toString());
+                UnitID              = Integer.parseInt(edit_user_id.getText().toString());
+                Project_warn        = (int)spinner_project_warn.getSelectedItemId()+21;
+                Warn_value          = Integer.parseInt(edit_warn.getText().toString());
+                Project_alarm       = (int)spinner_project_alarm.getSelectedItemId()+21;
+                Alarm_value         = Integer.parseInt(edit_alarm.getText().toString());
+                ProduceName         = edit_produce_name.getText().toString();
+
+                AT_Utils.setIP(Ip_addr,Ip_port);
                 AT_Utils.WorkMode(WorkMode);
                 AT_Utils.ConnectMode(ConnectMode);
                 AT_Utils.MasterSlaveMode(MasterSlaveMode);
@@ -138,6 +188,17 @@ public class ConfigActivity extends AppCompatActivity{
                 AT_Utils.DataTissue(DataTissue);
                 AT_Utils.WifiName(WifiName);
                 AT_Utils.WifiPassword(WifiPassword);
+                AT_Utils.SetTime(DisplayTime,"DisplayTime");
+                AT_Utils.SetTime(SendToInternetTime,"SendToInternetTime");
+                AT_Utils.SetTime(GetMegTime,"GetMegTime");
+                AT_Utils.Baud(Usart,Bound,Byte_length,Stop_bit,Check_bit);
+                AT_Utils.SetTime(SleepTime,"SleepTime");
+                AT_Utils.GroupID(GroupID);
+                AT_Utils.UnitID(UnitID);
+                AT_Utils.WarningAlarmValue(Project_warn ,Warn_value ,"WarningValue");
+                AT_Utils.WarningAlarmValue(Project_alarm,Alarm_value,"AlarmValue");
+                AT_Utils.ProduceName(ProduceName);
+
             }
         });
 

@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Locale;
 
@@ -18,7 +17,14 @@ import java.util.Locale;
 
 public class AT_Utils {
 
+    public static String HOST = "192.168.1.108";//服务器地址
+    public static int    PORT = 8888;
     public static boolean isMQTT  = true;
+
+    static void setIP(String host,int port) {
+        HOST = host;
+        PORT = port;
+    }
 
     static void sendByWifi(final String message){
         new Thread(new Runnable(){
@@ -27,7 +33,7 @@ public class AT_Utils {
                 try
                 {
                     //创建Socket
-                    Socket socket = new Socket("192.168.0.104",8210);
+                    Socket socket = new Socket(HOST,PORT);
                     //向服务器端发送消息
                     PrintWriter out = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
                     out.println(message);

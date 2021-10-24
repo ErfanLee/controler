@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="30dp"
-        android:gravity="center"
+        android:gravity="end"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,10 +21,43 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"/>
+        <com.lx.controler.IPEditText
+            android:id="@+id/ip_edit_addr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.lx.controler.IPEditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ip_port"/>
+        <EditText
+            android:id="@+id/edit_ip_port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="5"
+            android:inputType="number"
+            android:maxLength="5"
+            android:text="8888"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="right"
         android:thumb="@drawable/thumb"
         android:track="@drawable/track"
         android:orientation="horizontal">
+
         <Switch
             android:id="@+id/switch_connect_mode"
             android:layout_width="wrap_content"
@@ -449,18 +482,96 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/bound" />
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usart_x" />
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_bound"
-                android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_usart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/usart" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/bound" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bound" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_bound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/bound" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/length" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_byte_length"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/byte_length" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stop" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_stop_bit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/stop_bit" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/check" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_check_bit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/check_bit" />
+            </LinearLayout>
 
             <ImageButton
                 android:id="@+id/ibn_bound"
@@ -548,6 +659,124 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/ic_menu_preferences" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/warn" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_project_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/project" />
+
+            <EditText
+                android:id="@+id/edit_warn_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:inputType="number"
+                android:maxLength="4"
+                android:text="100"/>
+
+            <ImageButton
+                android:id="@+id/ibn_project_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/ic_menu_preferences" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alarm" />
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_project_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/project" />
+
+            <EditText
+                android:id="@+id/edit_alarm_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:inputType="number"
+                android:maxLength="4"
+                android:text="200"/>
+
+            <ImageButton
+                android:id="@+id/ibn_project_alarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/ic_menu_preferences" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/produce" />
+
+            <EditText
+                android:id="@+id/edit_produce_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="8"
+                android:maxLength="8"
+                android:text="huanjing"/>
+
+            <ImageButton
+                android:id="@+id/ibn_produce_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/ic_menu_preferences" />
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_location_x"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/location_x"/>
+
+        <EditText
+            android:id="@+id/location_y"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:hint="@string/location_y"/>
+        <ImageButton
+            android:id="@+id/edit_ibn_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:drawable/ic_menu_preferences" />
         </LinearLayout>
     </LinearLayout>
 

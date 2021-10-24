@@ -764,7 +764,7 @@ public class ScrollingActivity extends AppCompatActivity {
         final EditText editMax = configSetView.findViewById(R.id.edit_max);
         final EditText editMin = configSetView.findViewById(R.id.edit_min);
         final EditText editWarn = configSetView.findViewById(R.id.edit_warn);
-        final EditText editAlrm = configSetView.findViewById(R.id.edit_alrm);
+        final EditText editAlrm = configSetView.findViewById(R.id.edit_alarm);
 
 
 

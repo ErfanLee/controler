@@ -45,7 +45,7 @@
 
     <!-- Strings related to login -->
     <string name="username">用户名</string>
-    <string name="address">ip地址</string>
+    <string name="address">ip地址:</string>
     <string name="password">密码</string>
     <string name="tourist">订阅主题名</string>
     <string name="response">响应主题名</string>
@@ -71,7 +71,7 @@
     <string name="location_x">经度</string>
     <string name="location_y">纬度</string>
 
-    <string name="port">端口号</string>
+    <string name="ip_port">端口号:</string>
 
 
     <string name="usart_x">串口号：</string>
@@ -121,9 +121,9 @@
     <string name="set_id">ID设置:</string>
     <string name="group_id">分组ID设置:</string>
     <string name="user_id">用户ID设置:</string>
-    <string name="action_setting124">预警值:</string>
-    <string name="action_setting125">报警值:</string>
-    <string name="action_setting126">产品名称设置:</string>
+    <string name="warn">预警值:</string>
+    <string name="alarm">报警值:</string>
+    <string name="produce">产品名称设置:</string>
     <string name="action_setting127">位置信息:</string>
     <string name="action_setting128">IP地址A设置:</string>
     <string name="action_setting129">IP地址B设置:</string>

@@ -69,6 +69,15 @@
         <item>自定义</item>
     </string-array>
 
+    <string-array name="usart">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+
     <string-array name="bound">
         <item>300</item>
         <item>600</item>
@@ -81,6 +90,38 @@
         <item>38400</item>
         <item>57600</item>
         <item>115200</item>
+    </string-array>
+
+    <string-array name="byte_length">
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
+    <string-array name="stop_bit">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
+    <string-array name="check_bit">
+        <item>NONE</item>
+        <item>ODD</item>
+        <item>EVEN</item>
+    </string-array>
+
+    <string-array name="project">
+        <item>风向</item>
+        <item></item>
+        <item>风速</item>
+        <item>温度</item>
+        <item>湿度</item>
+        <item>噪音</item>
+        <item>PM2.5</item>
+        <item>PM10</item>
+        <item>大气压</item>
+        <item>光照度</item>
+        <item>雨量</item>
     </string-array>
 
 </resources>
