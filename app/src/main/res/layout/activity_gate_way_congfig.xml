@@ -18,24 +18,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/address"/>
-        <com.lx.controler.IPEditText
-            android:id="@+id/ip_edit_addr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </com.lx.controler.IPEditText>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="end"
         android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
@@ -49,11 +36,16 @@
             android:inputType="number"
             android:maxLength="5"
             android:text="8888"/>
+        <Switch
+            android:id="@+id/switch_port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
+        android:gravity="end"
         android:thumb="@drawable/thumb"
         android:track="@drawable/track"
         android:orientation="horizontal">
@@ -94,11 +86,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/work_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_work_mode"
+            <CheckBox
+                android:id="@+id/checkbox_work_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -118,11 +110,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/connect_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_connect_mode"
+            <CheckBox
+                android:id="@+id/checkbox_connect_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
 
         </LinearLayout>
 
@@ -143,11 +135,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/master_slave_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_master_slave_mode"
+            <CheckBox
+                android:id="@+id/checkbox_master_slave_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
 
         </LinearLayout>
 
@@ -168,11 +160,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/function_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_function_mode"
+            <CheckBox
+                android:id="@+id/checkbox_function_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
 
         </LinearLayout>
 
@@ -193,11 +185,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/transfer_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_transfer_mode"
+            <CheckBox
+                android:id="@+id/checkbox_transfer_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -217,11 +209,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/display_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_display_mode"
+            <CheckBox
+                android:id="@+id/checkbox_display_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -241,11 +233,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/group_number" />
 
-            <ImageButton
-                android:id="@+id/ibn_group_number"
+            <CheckBox
+                android:id="@+id/checkbox_group_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -265,11 +257,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/connect_target" />
 
-            <ImageButton
-                android:id="@+id/ibn_connect_target"
+            <CheckBox
+                android:id="@+id/checkbox_connect_target"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -289,11 +281,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/wifi_mode" />
 
-            <ImageButton
-                android:id="@+id/ibn_wifi_mode"
+            <CheckBox
+                android:id="@+id/checkbox_wifi_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -315,11 +307,11 @@
                 android:maxLength="8"
                 android:text="SPS2"/>
 
-            <ImageButton
-                android:id="@+id/ibn_wifi_name"
+            <CheckBox
+                android:id="@+id/checkbox_wifi_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                />
         </LinearLayout>
 
         <LinearLayout
@@ -342,11 +334,11 @@
                 android:maxLength="8"
                 android:text="12345678"/>
 
-            <ImageButton
-                android:id="@+id/ibn_wifi_password"
+            <CheckBox
+                android:id="@+id/checkbox_wifi_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -366,11 +358,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/transfer_protocol" />
 
-            <ImageButton
-                android:id="@+id/ibn_transfer_protocol"
+            <CheckBox
+                android:id="@+id/checkbox_transfer_protocol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -390,11 +382,11 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/data_tissue" />
 
-            <ImageButton
-                android:id="@+id/ibn_data_tissue"
+            <CheckBox
+                android:id="@+id/checkbox_data_tissue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -417,11 +409,11 @@
                 android:maxLength="8"
                 android:text="36000"/>
 
-            <ImageButton
-                android:id="@+id/ibn_display_time"
+            <CheckBox
+                android:id="@+id/checkbox_display_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -444,11 +436,11 @@
                 android:maxLength="8"
                 android:text="36000"/>
 
-            <ImageButton
-                android:id="@+id/ibn_internet_time"
+            <CheckBox
+                android:id="@+id/checkbox_internet_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -471,17 +463,17 @@
                 android:maxLength="8"
                 android:text="36000"/>
 
-            <ImageButton
-                android:id="@+id/ibn_message_time"
+            <CheckBox
+                android:id="@+id/checkbox_message_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:gravity="end"
             android:orientation="vertical">
 
             <LinearLayout
@@ -573,12 +565,24 @@
                     android:entries="@array/check_bit" />
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/ibn_bound"
+            <CheckBox
+                android:id="@+id/checkbox_bound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
+
+        <com.lx.controler.UsartConfigList
+            android:id="@+id/usartConfigList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <com.lx.controler.ATTextConfig
+            android:id="@+id/atTextConfig"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -600,11 +604,11 @@
                 android:maxLength="8"
                 android:text="36000"/>
 
-            <ImageButton
-                android:id="@+id/ibn_sleep_time"
+            <CheckBox
+                android:id="@+id/checkbox_sleep_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -627,11 +631,11 @@
                 android:maxLength="4"
                 android:text="01"/>
 
-            <ImageButton
-                android:id="@+id/ibn_group_id"
+            <CheckBox
+                android:id="@+id/checkbox_group_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -654,11 +658,11 @@
                 android:maxLength="4"
                 android:text="05"/>
 
-            <ImageButton
-                android:id="@+id/ibn_user_id"
+            <CheckBox
+                android:id="@+id/checkbox_user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -687,11 +691,11 @@
                 android:maxLength="4"
                 android:text="100"/>
 
-            <ImageButton
-                android:id="@+id/ibn_project_warn"
+            <CheckBox
+                android:id="@+id/checkbox_project_warn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -720,11 +724,11 @@
                 android:maxLength="4"
                 android:text="200"/>
 
-            <ImageButton
-                android:id="@+id/ibn_project_alarm"
+            <CheckBox
+                android:id="@+id/checkbox_project_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -746,11 +750,11 @@
                 android:maxLength="8"
                 android:text="huanjing"/>
 
-            <ImageButton
-                android:id="@+id/ibn_produce_name"
+            <CheckBox
+                android:id="@+id/checkbox_produce_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/ic_menu_preferences" />
+                 />
         </LinearLayout>
 
         <LinearLayout
@@ -772,11 +776,11 @@
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:hint="@string/location_y"/>
-        <ImageButton
-            android:id="@+id/edit_ibn_location"
+        <CheckBox
+            android:id="@+id/checkbox_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_menu_preferences" />
+             />
         </LinearLayout>
     </LinearLayout>
 

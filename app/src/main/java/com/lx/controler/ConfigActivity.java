@@ -1,16 +1,22 @@
 package com.lx.controler;
 
 import android.content.Context;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import java.util.LinkedList;
 
 /**
  * Created by pc02 on 2021/9/14.
@@ -19,9 +25,10 @@ import android.widget.Toast;
 public class ConfigActivity extends AppCompatActivity{
 
     public static Context context;//上下文
+    String wifiIP;
+
 
     /*需要设置的物联网关参数*/
-    String Ip_addr;
     int Ip_port;
 
     int WorkMode;
@@ -54,12 +61,21 @@ public class ConfigActivity extends AppCompatActivity{
     String WifiPassword;
     String ProduceName;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gate_way_congfig);
         context = this;
 
+        wifiIP =  getLocalHost();
+
+        Toast.makeText(ConfigActivity.this,
+                wifiIP,
+                Toast.LENGTH_SHORT).show();
+
+        AT_Utils.setPort(wifiIP,8888);
         MyMqttService.startService(this); //开启Mqtt服务
         initCtrl();
 
@@ -67,8 +83,7 @@ public class ConfigActivity extends AppCompatActivity{
 
     private void initCtrl() {
 
-        //设置IP地址
-        final IPEditText ip_edit_addr = findViewById(R.id.ip_edit_addr);
+        //设置端口号
         final EditText   edit_ip_port = findViewById(R.id.edit_ip_port);
         //工作模式
         final Spinner spinner_work_mode           = findViewById(R.id.spinner_work_mode);
@@ -108,6 +123,9 @@ public class ConfigActivity extends AppCompatActivity{
         final Spinner spinner_byte_length         = findViewById(R.id.spinner_byte_length);
         final Spinner spinner_stop_bit            = findViewById(R.id.spinner_stop_bit);
         final Spinner spinner_check_bit           = findViewById(R.id.spinner_check_bit);
+
+        //串口设置多个串口
+        final UsartConfigList usartConfigList     = findViewById(R.id.usartConfigList);
         //休眠时间设定
         final EditText edit_sleep_time            = findViewById(R.id.edit_sleep_time);
         //分组ID设置
@@ -133,16 +151,65 @@ public class ConfigActivity extends AppCompatActivity{
         //询问模块编号
         //物联信息采集
 
+        //勾选发送选项
+        final CheckBox checkbox_work_mode           = findViewById(R.id.checkbox_work_mode);
+        final CheckBox checkbox_connect_mode        = findViewById(R.id.checkbox_connect_mode);
+        final CheckBox checkbox_master_slave_mode   = findViewById(R.id.checkbox_master_slave_mode);
+        final CheckBox checkbox_function_mode       = findViewById(R.id.checkbox_function_mode);
+        final CheckBox checkbox_transfer_mode       = findViewById(R.id.checkbox_transfer_mode);
+        final CheckBox checkbox_display_mode        = findViewById(R.id.checkbox_display_mode);
+        final CheckBox checkbox_group_number        = findViewById(R.id.checkbox_group_number);
+        final CheckBox checkbox_connect_target      = findViewById(R.id.checkbox_connect_target);
+        final CheckBox checkbox_wifi_mode           = findViewById(R.id.checkbox_wifi_mode);
+        final CheckBox checkbox_wifi_name           = findViewById(R.id.checkbox_wifi_name);
+        final CheckBox checkbox_wifi_password       = findViewById(R.id.checkbox_wifi_password);
+        final CheckBox checkbox_transfer_protocol   = findViewById(R.id.checkbox_transfer_protocol);
+        final CheckBox checkbox_data_tissue         = findViewById(R.id.checkbox_data_tissue);
+        final CheckBox checkbox_display_time        = findViewById(R.id.checkbox_display_time);
+        final CheckBox checkbox_internet_time       = findViewById(R.id.checkbox_internet_time);
+        final CheckBox checkbox_message_time        = findViewById(R.id.checkbox_message_time);
+        final CheckBox checkbox_bound               = findViewById(R.id.checkbox_bound);
+        final CheckBox checkbox_sleep_time          = findViewById(R.id.checkbox_sleep_time);
+        final CheckBox checkbox_group_id            = findViewById(R.id.checkbox_group_id);
+        final CheckBox checkbox_user_id             = findViewById(R.id.checkbox_user_id);
+        final CheckBox checkbox_project_warn        = findViewById(R.id.checkbox_project_warn);
+        final CheckBox checkbox_project_alarm       = findViewById(R.id.checkbox_project_alarm);
+        final CheckBox checkbox_produce_name        = findViewById(R.id.checkbox_produce_name);
+        final CheckBox checkbox_location            = findViewById(R.id.checkbox_location);
+
+        final Switch switch_port = findViewById(R.id.switch_port);
+        switch_port.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    wifiIP =  getLocalHost();
+                    Ip_port = Integer.parseInt(edit_ip_port.getText().toString());
+                    AT_Utils.setPort(wifiIP,Ip_port);
+
+                    Toast.makeText(ConfigActivity.this,
+                            "获取网关地址"+wifiIP+"端口号"+Ip_port,
+                            Toast.LENGTH_SHORT).show();
+                    edit_ip_port.setEnabled(false);
+
+                }else{
+                    edit_ip_port.setEnabled(true);
+                }
+            }
+        });
+
+
         FloatingActionButton fab_send  =  findViewById(R.id.fab_send);
         fab_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "fab_send", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-
-
-                Ip_addr             = ip_edit_addr.getText();
-                Ip_port             = Integer.parseInt(edit_ip_port.getText().toString());
+                if(!AT_Utils.getWifiState()){
+                    Toast.makeText(ConfigActivity.this,
+                            "Wifi连接失败",
+                            Toast.LENGTH_SHORT).show();
+                    switch_port.setChecked(false);
+                }
 
                 WorkMode            = (int)spinner_work_mode.getSelectedItemId()+1;
                 ConnectMode         = (int)spinner_connect_mode.getSelectedItemId()+1;
@@ -174,33 +241,89 @@ public class ConfigActivity extends AppCompatActivity{
                 Alarm_value         = Integer.parseInt(edit_alarm.getText().toString());
                 ProduceName         = edit_produce_name.getText().toString();
 
-                AT_Utils.setIP(Ip_addr,Ip_port);
-                AT_Utils.WorkMode(WorkMode);
-                AT_Utils.ConnectMode(ConnectMode);
-                AT_Utils.MasterSlaveMode(MasterSlaveMode);
-                AT_Utils.FunctionMode(FunctionMode);
-                AT_Utils.TransferMode(TransferMode);
-                AT_Utils.DisplayMode(DisplayMode);
-                AT_Utils.GroupNumber(GroupNumber);
-                AT_Utils.ConnectTarget(ConnectTarget);
-                AT_Utils.WifiMode(WifiMode);
-                AT_Utils.TransferProtocol(TransferProtocol);
-                AT_Utils.DataTissue(DataTissue);
-                AT_Utils.WifiName(WifiName);
-                AT_Utils.WifiPassword(WifiPassword);
-                AT_Utils.SetTime(DisplayTime,"DisplayTime");
-                AT_Utils.SetTime(SendToInternetTime,"SendToInternetTime");
-                AT_Utils.SetTime(GetMegTime,"GetMegTime");
-                AT_Utils.Baud(Usart,Bound,Byte_length,Stop_bit,Check_bit);
-                AT_Utils.SetTime(SleepTime,"SleepTime");
-                AT_Utils.GroupID(GroupID);
-                AT_Utils.UnitID(UnitID);
-                AT_Utils.WarningAlarmValue(Project_warn ,Warn_value ,"WarningValue");
-                AT_Utils.WarningAlarmValue(Project_alarm,Alarm_value,"AlarmValue");
-                AT_Utils.ProduceName(ProduceName);
 
+
+                if(checkbox_work_mode.isChecked()){
+                    AT_Utils.WorkMode(WorkMode);
+                }
+                if(checkbox_connect_mode.isChecked()){
+                    AT_Utils.ConnectMode(ConnectMode);
+                }
+                if(checkbox_master_slave_mode.isChecked()){
+                    AT_Utils.MasterSlaveMode(MasterSlaveMode);
+                }
+                if(checkbox_function_mode.isChecked()){
+                    AT_Utils.FunctionMode(FunctionMode);
+                }
+                if(checkbox_transfer_mode.isChecked()){
+                    AT_Utils.TransferMode(TransferMode);
+                }
+                if(checkbox_display_mode.isChecked()){
+                    AT_Utils.DisplayMode(DisplayMode);
+                }
+                if(checkbox_group_number.isChecked()){
+                    AT_Utils.GroupNumber(GroupNumber);
+                }
+                if(checkbox_connect_target.isChecked()){
+                    AT_Utils.ConnectTarget(ConnectTarget);
+                }
+                if(checkbox_wifi_mode.isChecked()){
+                    AT_Utils.WifiMode(WifiMode);
+                }
+                if(checkbox_wifi_name.isChecked()){
+                    AT_Utils.WifiName(WifiName);
+                }
+                if(checkbox_wifi_password.isChecked()){
+                    AT_Utils.WifiPassword(WifiPassword);
+                }
+                if(checkbox_transfer_protocol.isChecked()){
+                    AT_Utils.TransferProtocol(TransferProtocol);
+                }
+                if(checkbox_data_tissue.isChecked()){
+                    AT_Utils.DataTissue(DataTissue);
+                }
+                if(checkbox_display_time.isChecked()){
+                    AT_Utils.SetTime(DisplayTime,"DisplayTime");
+                }
+                if(checkbox_internet_time.isChecked()){
+                    AT_Utils.SetTime(SendToInternetTime,"SendToInternetTime");
+                }
+                if(checkbox_message_time.isChecked()){
+                    AT_Utils.SetTime(GetMegTime,"GetMegTime");
+                }
+                if(checkbox_bound.isChecked()){
+                    AT_Utils.Baud(Usart,Bound,Byte_length,Stop_bit,Check_bit);
+                }
+                //多个串口设置控件
+                for(int i = 0;i<usartConfigList.usartNum;i++){
+                    final UsartConfig usartConfig = usartConfigList.get(i);
+                    if(usartConfig.isChecked()){
+                        AT_Utils.Baud(usartConfig.USARTx,usartConfig.Boundx,usartConfig.length,usartConfig.stop,usartConfig.check);
+                    }
+                }
+
+                if(checkbox_sleep_time.isChecked()){
+                    AT_Utils.SetTime(SleepTime,"SleepTime");
+                }
+                if(checkbox_group_id.isChecked()){
+                    AT_Utils.GroupID(GroupID);
+                }
+                if(checkbox_user_id.isChecked()){
+                    AT_Utils.UnitID(UnitID);
+                }
+                if(checkbox_project_warn.isChecked()){
+                    AT_Utils.WarningAlarmValue(Project_warn ,Warn_value ,"WarningValue");
+                }
+                if(checkbox_project_alarm.isChecked()){
+                    AT_Utils.WarningAlarmValue(Project_alarm,Alarm_value,"AlarmValue");
+                }
+                if(checkbox_produce_name.isChecked()){
+                    AT_Utils.ProduceName(ProduceName);
+                }
             }
         });
+
+
 
         Switch switch_connect_mode = findViewById(R.id.switch_connect_mode);
         switch_connect_mode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -226,4 +349,15 @@ public class ConfigActivity extends AppCompatActivity{
 
 
     }
+    private String getLocalHost(){
+        WifiManager wifiManager = (WifiManager)getApplication().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        int ipAddress = wifiInfo.getIpAddress();
+        String strHost = ((ipAddress & 0xff)+"."+(ipAddress>>8 & 0xff)+"."
+                +(ipAddress>>16 & 0xff)+".108");
+        if(ipAddress==0)return "未连接wifi";
+        return strHost;
+    }
 }
+
+

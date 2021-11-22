@@ -1,13 +1,4 @@
 package com.lx.controler;
-
-import android.util.Log;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.net.URLEncoder;
 import java.util.Locale;
 
@@ -17,53 +8,22 @@ import java.util.Locale;
 
 public class AT_Utils {
 
-    public static String HOST = "192.168.1.108";//服务器地址
-    public static int    PORT = 8888;
     public static boolean isMQTT  = true;
 
-    static void setIP(String host,int port) {
-        HOST = host;
-        PORT = port;
+
+    static SocketClient socketClient;
+
+    static void setPort(final String ipString,final int port){
+        socketClient = new SocketClient(ipString,port);
+    }
+
+    static boolean getWifiState(){
+        return socketClient.isConnected();
     }
 
     static void sendByWifi(final String message){
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                try
-                {
-                    //创建Socket
-                    Socket socket = new Socket(HOST,PORT);
-                    //向服务器端发送消息
-                    PrintWriter out = new PrintWriter( new BufferedWriter( new OutputStreamWriter(socket.getOutputStream())),true);
-                    out.println(message);
 
-                    //接收来自服务器端的消息
-                    BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                    String msg = br.readLine();
-
-                    if ( msg != null )
-                    {
-                        Log.i("DebugTag", "msg");
-                    }
-                    else
-                    {
-                    }
-                    //关闭流
-                    out.close();
-                    br.close();
-                    //关闭Socket
-                    socket.close();
-                }
-                catch (Exception e)
-                {
-                    // TODO: handle exception
-                    Log.e("DebugTag", e.toString());
-                }
-            }
-        }).start();
-
-
+        socketClient.send(message);
     }
 
     static void sendAtCommand(final String com){

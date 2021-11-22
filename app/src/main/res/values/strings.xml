@@ -74,11 +74,11 @@
     <string name="ip_port">端口号:</string>
 
 
-    <string name="usart_x">串口号：</string>
+    <string name="usart_x">串口：</string>
     <string name="baud">波特率:</string>
     <string name="length">字节长度：</string>
-    <string name="stop">停止位：</string>
-    <string name="check">校验位</string>
+    <string name="stop">停止位:</string>
+    <string name="check">校验位:</string>
     <string name="project">项目:</string>
     <string name="agreement_type">协议类型:</string>
     <string name="rows">行数:</string>
@@ -87,7 +87,7 @@
     <string name="erase">全擦除   </string>
     <string name="single_choice">单选有效</string>
     <string name="send_display">向显示器发送</string>
-    <string name="send_internet">向互联网发送:</string>
+    <string name="send_internet">向互联网发送</string>
     <string name="before_data">采集数据前显示:</string>
     <string name="data_format">采集数据格式:</string>
     <string name="before_point">数据位数</string>
@@ -116,7 +116,7 @@
     <string name="display_time">屏显间隔时间:</string>
     <string name="internet_time">上云间隔时间:</string>
     <string name="message_time">采集信息间隔:</string>
-    <string name="bound">波特率设置:</string>
+    <string name="bound">波特率:</string>
     <string name="sleep_time">休眠时间设定:</string>
     <string name="set_id">ID设置:</string>
     <string name="group_id">分组ID设置:</string>

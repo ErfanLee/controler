@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usart_x" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_usart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/usart" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/bound" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_bound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/bound" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/length" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_byte_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/byte_length" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/stop" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_stop_bit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/stop_bit" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_check_bit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/check_bit" />
+    </LinearLayout>
+</LinearLayout>
