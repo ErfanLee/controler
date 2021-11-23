@@ -69,6 +69,7 @@ public class ConfigActivity extends AppCompatActivity{
         setContentView(R.layout.activity_gate_way_congfig);
         context = this;
 
+        //获取wifi网关地址
         wifiIP =  getLocalHost();
 
         Toast.makeText(ConfigActivity.this,
@@ -126,6 +127,9 @@ public class ConfigActivity extends AppCompatActivity{
 
         //串口设置多个串口
         final UsartConfigList usartConfigList     = findViewById(R.id.usartConfigList);
+        //参数设置动态数量复数个控件
+        final ATTextConfigList atConfigList     = findViewById(R.id.atTextConfigList);
+
         //休眠时间设定
         final EditText edit_sleep_time            = findViewById(R.id.edit_sleep_time);
         //分组ID设置
@@ -302,6 +306,26 @@ public class ConfigActivity extends AppCompatActivity{
                     }
                 }
 
+                //多个at text参数设置控件
+                for(int i =0;i<atConfigList.atNum;i++){
+                    final ATTextConfig atTextConfig = atConfigList.get(i);
+                    if(atTextConfig.isChecked()){
+                        AT_Utils.ConfigText(atTextConfig.rowsNum,
+                                atTextConfig.erase,
+                                atTextConfig.single,
+                                atTextConfig.agreementInt,
+                                atTextConfig.projectInt,
+                                atTextConfig.display,
+                                atTextConfig.internet,
+                                atTextConfig.display,
+                                atTextConfig.rowsNoInt,
+                                atTextConfig.dataNum,
+                                atTextConfig.afterPointInt,
+                                atTextConfig.data_before,
+                                atTextConfig.data_after);
+                    }
+                }
+
                 if(checkbox_sleep_time.isChecked()){
                     AT_Utils.SetTime(SleepTime,"SleepTime");
                 }
@@ -354,7 +378,7 @@ public class ConfigActivity extends AppCompatActivity{
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ipAddress = wifiInfo.getIpAddress();
         String strHost = ((ipAddress & 0xff)+"."+(ipAddress>>8 & 0xff)+"."
-                +(ipAddress>>16 & 0xff)+".108");
+                +(ipAddress>>16 & 0xff)+".1");//修改最末尾的地址
         if(ipAddress==0)return "未连接wifi";
         return strHost;
     }

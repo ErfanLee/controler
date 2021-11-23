@@ -45,26 +45,31 @@ public class ATTextConfig extends LinearLayout{
     final CheckBox checkBoxDisplay;
     final CheckBox checkBoxInternet;
     final TextView text_rowNum;
+    final TextView text_display_no;
+    final TextView text_row_no;
+    final TextView text_num;
+    final TextView text_point_num;
+    final TextView text_before;
+    final TextView text_after;
+    final CheckBox checkbox_at;
 
 
 
 
 
-
-
-    int erase = 1;
-    int single = 1;
-    int display = 1;
-    int internet = 1;
-    int projectInt = PROJECT_BASE;
-    int agreementInt = AGREEMENT_BASE;
-    int displayNoInt = DISPLAY_NO_BASE;
-    int rowsNoInt = ROWS_NO_BASE;
-    int beforePointInt = 0;
-    int afterPointInt = 0;
-    int rowsNum = 1;
-    String data_before = "";
-    String data_after = "";
+    public int erase = 1;
+    public int single = 1;
+    public int display = 1;
+    public int internet = 1;
+    public int projectInt = PROJECT_BASE;
+    public int agreementInt = AGREEMENT_BASE;
+    public int displayNoInt = DISPLAY_NO_BASE;
+    public int rowsNoInt = ROWS_NO_BASE;
+    public int dataNum = 0;
+    public int afterPointInt = 0;
+    public int rowsNum = 1;
+    public String data_before = "";
+    public String data_after = "";
     ATTextConfig(Context context, AttributeSet attrs){
         super(context, attrs);
         m_context = context;
@@ -77,6 +82,16 @@ public class ATTextConfig extends LinearLayout{
         checkBoxDisplay  = view.findViewById(R.id.chk_display);
         checkBoxInternet = view.findViewById(R.id.chk_internet);
         text_rowNum      = view.findViewById(R.id.text_rowNum);
+        text_display_no  = view.findViewById(R.id.text_display_no);
+        text_row_no      = view.findViewById(R.id.text_row_no);
+        text_num         = view.findViewById(R.id.text_num);
+        text_point_num   = view.findViewById(R.id.text_point_num);
+        text_before      = view.findViewById(R.id.text_before_data);
+        text_after       = view.findViewById(R.id.text_after_data);
+        checkbox_at      = view.findViewById(R.id.checkbox_at);
+
+
+        refreshDisplay();
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +128,12 @@ public class ATTextConfig extends LinearLayout{
             checkBoxInternet.setChecked(false);
         }
         text_rowNum.setText(""+rowsNum);
+        text_display_no.setText(""+displayNoInt);
+        text_row_no.setText(""+rowsNoInt);
+        text_num.setText(""+dataNum);
+        text_point_num.setText(""+afterPointInt);
+        text_before.setText(data_before);
+        text_after.setText(data_after);
 
     }
 
@@ -179,35 +200,35 @@ public class ATTextConfig extends LinearLayout{
         final Spinner spinner2=configSetView.findViewById(R.id.spinner_display_no);
         ArrayAdapter<String> arrayAdapterDisplayNo=new ArrayAdapter<>(m_context,android.R.layout.simple_spinner_item,displayNoStrArray);
         spinner2.setAdapter(arrayAdapterDisplayNo);
-//        spinner2.setSelection(displayNoInt - DISPLAY_NO_BASE);
+        spinner2.setSelection(displayNoInt - DISPLAY_NO_BASE);
 
         //前面
         final EditText edtTextBefore = configSetView.findViewById(R.id.edit_before_data);
         //后面
         final EditText edtTextAfter = configSetView.findViewById(R.id.edit_after_data);
-//        edtTextBefore.setText(data_before);
-//        edtTextAfter.setText(data_after);
+        edtTextBefore.setText(data_before);
+        edtTextAfter.setText(data_after);
 
         //设置行号
         final  String[] rowsNoStrArray = {"1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16"};
         final Spinner spinner3=configSetView.findViewById(R.id.spinner_row_no);
         ArrayAdapter<String> arrayAdapterRowsNo=new ArrayAdapter<>(m_context,android.R.layout.simple_spinner_item,rowsNoStrArray);
         spinner3.setAdapter(arrayAdapterRowsNo);
-//        spinner3.setSelection(rowsNoInt - ROWS_NO_BASE);
+        spinner3.setSelection(rowsNoInt - ROWS_NO_BASE);
 
         //设置小数点前位数
         final  String[] beforePointStrArray = {"0","1","2","3","4","5"};//无，奇校验，偶校验
         final Spinner spinner4=configSetView.findViewById(R.id.spinner_before_point);
         ArrayAdapter<String> arrayAdapterBeforePoint=new ArrayAdapter<>(m_context,android.R.layout.simple_spinner_item,beforePointStrArray);
         spinner4.setAdapter(arrayAdapterBeforePoint);
-//        spinner4.setSelection(beforePointInt);
+        spinner4.setSelection(dataNum);
 
         //设置小数点后位数
         final   String[] afterPointStrArray = {"0","1","2","3","4","5"};//无，奇校验，偶校验
         final Spinner spinner5=configSetView.findViewById(R.id.spinner_after_point);
         ArrayAdapter<String> arrayAdapterAfterPoint=new ArrayAdapter<>(m_context,android.R.layout.simple_spinner_item,afterPointStrArray);
         spinner5.setAdapter(arrayAdapterAfterPoint);
-//        spinner5.setSelection(afterPointInt);
+        spinner5.setSelection(afterPointInt);
 
 
         AlertDialog.Builder inputDialogBuilder =
@@ -228,7 +249,7 @@ public class ATTextConfig extends LinearLayout{
                             rowsNum         = Integer.parseInt(editText.getText().toString());
                             displayNoInt    = (int) spinner2.getSelectedItemId() + DISPLAY_NO_BASE;
                             rowsNoInt       = (int) spinner3.getSelectedItemId() + ROWS_NO_BASE;
-                            beforePointInt  = (int) spinner4.getSelectedItemId();
+                            dataNum  = (int) spinner4.getSelectedItemId();
                             afterPointInt   = (int) spinner5.getSelectedItemId();
                             erase = single = display = internet = 0;
                             if (checkErase.isChecked()) {
@@ -243,6 +264,9 @@ public class ATTextConfig extends LinearLayout{
                             if (checkSendInt.isChecked()) {
                                 internet = 1;
                             }
+                            data_before = edtTextBefore.getText().toString();
+                            data_after  = edtTextAfter.getText().toString();
+
 
                             //设置显示控件显示参数
                             refreshDisplay();
@@ -297,6 +321,10 @@ public class ATTextConfig extends LinearLayout{
             }
         });
         inputDialog.show();
+    }
+
+    boolean isChecked(){
+        return checkbox_at.isChecked();
     }
 
 }

@@ -574,13 +574,13 @@
 
         <com.lx.controler.UsartConfigList
             android:id="@+id/usartConfigList"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
-        <com.lx.controler.ATTextConfig
-            android:id="@+id/atTextConfig"
-            android:layout_width="wrap_content"
+        <com.lx.controler.ATTextConfigList
+            android:id="@+id/atTextConfigList"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
