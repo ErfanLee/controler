@@ -124,4 +124,12 @@
         <item>雨量</item>
     </string-array>
 
+    <string-array name="arrays_data_tissue">
+        <item>自定义专用</item>
+        <item>自定义通用</item>
+        <item>MODBUS</item>
+        <item>IIC</item>
+        <item>SPI</item>
+    </string-array>
+
 </resources>

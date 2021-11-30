@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity{
         // Store values at the time of the login attempt.
         String ipAddress    = ipAddressView.getText().toString();
         String userName     = userNameView.getText().toString();
-        String password    = mPasswordView.getText().toString();
+        String password     = mPasswordView.getText().toString();
         String tourist      = touristView.getText().toString();
         String response     = responseView.getText().toString();
         Toast.makeText(LoginActivity.this,

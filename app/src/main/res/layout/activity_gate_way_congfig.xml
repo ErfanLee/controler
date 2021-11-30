@@ -19,29 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="end"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ip_port"/>
-        <EditText
-            android:id="@+id/edit_ip_port"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="5"
-            android:inputType="number"
-            android:maxLength="5"
-            android:text="8888"/>
-        <Switch
-            android:id="@+id/switch_port"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,6 +27,16 @@
         android:thumb="@drawable/thumb"
         android:track="@drawable/track"
         android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:backgroundTint="@color/colorAccent"
+            app:fabSize="mini"
+            app:layout_anchor="@id/app_bar"
+            app:srcCompat="@android:drawable/ic_lock_power_off" />
 
         <Switch
             android:id="@+id/switch_connect_mode"
@@ -303,8 +291,8 @@
                 android:id="@+id/edit_wifi_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
-                android:maxLength="8"
+                android:ems="10"
+                android:maxLength="20"
                 android:text="SPS2"/>
 
             <CheckBox
@@ -329,9 +317,9 @@
                 android:id="@+id/edit_wifi_password"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="8"
+                android:ems="10"
                 android:inputType="textPassword"
-                android:maxLength="8"
+                android:maxLength="10"
                 android:text="12345678"/>
 
             <CheckBox
@@ -365,29 +353,11 @@
                  />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.lx.controler.DataTissueConfig
+            android:id="@+id/dataTissue_config"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/data_tissue" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_data_tissue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/data_tissue" />
-
-            <CheckBox
-                android:id="@+id/checkbox_data_tissue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -470,107 +440,6 @@
                  />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/usart_x" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner_usart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/usart" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/bound" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner_bound"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/bound" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/length" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner_byte_length"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/byte_length" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stop" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner_stop_bit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/stop_bit" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/check" />
-
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/spinner_check_bit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/check_bit" />
-            </LinearLayout>
-
-            <CheckBox
-                android:id="@+id/checkbox_bound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
 
         <com.lx.controler.UsartConfigList
             android:id="@+id/usartConfigList"

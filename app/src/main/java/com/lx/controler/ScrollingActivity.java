@@ -1045,7 +1045,7 @@ public class ScrollingActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_scrolling, menu);
+        getMenuInflater().inflate(R.menu.menu_config, menu);
         return true;
     }
 
@@ -1057,149 +1057,153 @@ public class ScrollingActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_setting1) {
-            AT_Utils.GetmessgeRequest();
-            return true;
+        if(id == R.id.action_setting){
+            Intent intent = new Intent(this,ConfigActivity.class);
+            startActivity(intent);
         }
-        if (id == R.id.action_setting2) {
-            AT_Utils.ResetRequest();
-            return true;
-        }
-        if (id == R.id.action_setting3) {
-            AT_Utils.SleepRequest();
-            return true;
-        }
-        if (id == R.id.action_setting4) {
-            AT_Utils.StopRequest();
-            return true;
-        }
-        if (id == R.id.action_setting5) {
-            setWorkModeDialog();
-            return true;
-        }
-        if (id == R.id.action_setting6) {
-            selectSpinnerDialog("上云连接模式","ConnectMode",R.layout.connect_mode,R.id.spinner_connect_mode);
-            return true;
-        }
-        if (id == R.id.action_setting7) {
-            selectSpinnerDialog("主从模式","MasterSlaveMode",R.layout.master_slave_mode,R.id.spinner_master_slave_mode);
-            return true;
-        }
-        if (id == R.id.action_setting8) {
-            selectSpinnerDialog("功能模式","FunctionMode",R.layout.function_mode,R.id.spinner_function_mode);
-            return true;
-        }
-        if (id == R.id.action_setting9) {
-            selectSpinnerDialog("数据传输模式","TransferMode",R.layout.transfer_mode,R.id.spinner_transfer_mode);
-            return true;
-        }
-        if (id == R.id.action_setting10) {
-            selectSpinnerDialog("显示驱动卡","DisplayMode",R.layout.display_mode,R.id.spinner_display_mode);
-            return true;
-        }
-        if (id == R.id.action_setting11) {
-            selectSpinnerDialog("分组数目","GroupNumber",R.layout.group_number,R.id.spinner_group_number,21);
-            return true;
-        }
-        if (id == R.id.action_setting12) {
-            selectSpinnerDialog("上云目的地址","ConnectTarget",R.layout.connect_target,R.id.spinner_connect_target);
-            return true;
-        }
-        if (id == R.id.action_setting13) {
-            selectSpinnerDialog("wifi连接模式","WifiMode",R.layout.wifi_mode,R.id.spinner_wifi_mode);
-            return true;
-        }
-        if (id == R.id.action_setting14) {
-            EditTextDialog("WIFI名称","WifiName",R.layout.wifi_name,R.id.edit_wifi_name);
-            return true;
-        }
-        if (id == R.id.action_setting15) {
-            EditTextDialog("WIFI密码","WifiPassword",R.layout.wifi_password,R.id.edit_wifi_password);
-            return true;
-        }
-        if (id == R.id.action_setting16) {
-            selectSpinnerDialog("数据传输协议","TransferProtocol",R.layout.transfer_protocol,R.id.spinner_transfer_protocol);
-            return true;
-        }
-        if (id == R.id.action_setting17) {
-            selectSpinnerDialog("数据组合协议","DataTissue",R.layout.data_tissue,R.id.spinner_data_tissue);
-            return true;
-        }
-        if (id == R.id.action_setting18) {
-            setTimeDialog("屏显间隔时间","DisplayTime");
-            return true;
-        }
-        if (id == R.id.action_setting19) {
-            setTimeDialog("上云间隔时间","SendToInternetTime");
-            return true;
-        }
-        if (id == R.id.action_setting20) {
-            setBaudRateDialog();
-            return true;
-        }
-        if (id == R.id.action_setting21) {
-            setTimeDialog("休眠时间设定","SleepTime");
-            return true;
-        }
-        if (id == R.id.action_setting22) {
-            setId_Dialog("分组ID设置","GroupID");
-            return true;
-        }
-        if (id == R.id.action_setting23) {
-            setId_Dialog("用户ID设置","UnitID");
-            return true;
-        }
-        if (id == R.id.action_setting24) {
-            editSpinnerDialog("预警值","WarningValue");
-            return true;
-        }
-        if (id == R.id.action_setting25) {
-            editSpinnerDialog("报警值","AlarmValue");
-            return true;
-        }
-        if (id == R.id.action_setting26) {
-            EditTextDialog("产品名称设置","ProduceName");
-            return true;
-        }
-        if (id == R.id.action_setting27) {
-            locationDialog();
-            return true;
-        }
-        if (id == R.id.action_setting28) {
-            ipDialog("IP地址A设置","IPA");
-            return true;
-        }
-        if (id == R.id.action_setting29) {
-            ipDialog("IP地址B设置","IPB");
-            return true;
-        }
-        if (id == R.id.action_setting30) {
-            EditTextDialog("产品密钥设置","ProduceKey",R.layout.product_key,R.id.product_key);
-            return true;
-        }
-        if (id == R.id.action_setting31) {
-            EditTextDialog("设备名称设置","DeviceName",R.layout.device_name,R.id.device_name);
-            return true;
-        }
-        if (id == R.id.action_setting32) {
-            EditTextDialog("设备秘钥设置","Devicesecret",R.layout.device_key,R.id.device_key);
-            return true;
-        }
-        if (id == R.id.action_setting33) {
-            EditTextDialog("发布名称名称","PubTopic");
-            return true;
-        }
-        if (id == R.id.action_setting34) {
-            EditTextDialog("订阅消息名称","SubTopic");
-            return true;
-        }
-        if (id == R.id.action_setting35) {
-            AT_Utils.IMEI();
-            return true;
-        }
-        if (id == R.id.action_setting36) {
-            setATTextDialog();
-        }
+//        if (id == R.id.action_setting1) {
+//            AT_Utils.GetmessgeRequest();
+//            return true;
+//        }
+//        if (id == R.id.action_setting2) {
+//            AT_Utils.ResetRequest();
+//            return true;
+//        }
+//        if (id == R.id.action_setting3) {
+//            AT_Utils.SleepRequest();
+//            return true;
+//        }
+//        if (id == R.id.action_setting4) {
+//            AT_Utils.StopRequest();
+//            return true;
+//        }
+//        if (id == R.id.action_setting5) {
+//            setWorkModeDialog();
+//            return true;
+//        }
+//        if (id == R.id.action_setting6) {
+//            selectSpinnerDialog("上云连接模式","ConnectMode",R.layout.connect_mode,R.id.spinner_connect_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting7) {
+//            selectSpinnerDialog("主从模式","MasterSlaveMode",R.layout.master_slave_mode,R.id.spinner_master_slave_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting8) {
+//            selectSpinnerDialog("功能模式","FunctionMode",R.layout.function_mode,R.id.spinner_function_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting9) {
+//            selectSpinnerDialog("数据传输模式","TransferMode",R.layout.transfer_mode,R.id.spinner_transfer_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting10) {
+//            selectSpinnerDialog("显示驱动卡","DisplayMode",R.layout.display_mode,R.id.spinner_display_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting11) {
+//            selectSpinnerDialog("分组数目","GroupNumber",R.layout.group_number,R.id.spinner_group_number,21);
+//            return true;
+//        }
+//        if (id == R.id.action_setting12) {
+//            selectSpinnerDialog("上云目的地址","ConnectTarget",R.layout.connect_target,R.id.spinner_connect_target);
+//            return true;
+//        }
+//        if (id == R.id.action_setting13) {
+//            selectSpinnerDialog("wifi连接模式","WifiMode",R.layout.wifi_mode,R.id.spinner_wifi_mode);
+//            return true;
+//        }
+//        if (id == R.id.action_setting14) {
+//            EditTextDialog("WIFI名称","WifiName",R.layout.wifi_name,R.id.edit_wifi_name);
+//            return true;
+//        }
+//        if (id == R.id.action_setting15) {
+//            EditTextDialog("WIFI密码","WifiPassword",R.layout.wifi_password,R.id.edit_wifi_password);
+//            return true;
+//        }
+//        if (id == R.id.action_setting16) {
+//            selectSpinnerDialog("数据传输协议","TransferProtocol",R.layout.transfer_protocol,R.id.spinner_transfer_protocol);
+//            return true;
+//        }
+//        if (id == R.id.action_setting17) {
+//            selectSpinnerDialog("数据组合协议","DataTissue",R.layout.data_tissue,R.id.spinner_data_tissue);
+//            return true;
+//        }
+//        if (id == R.id.action_setting18) {
+//            setTimeDialog("屏显间隔时间","DisplayTime");
+//            return true;
+//        }
+//        if (id == R.id.action_setting19) {
+//            setTimeDialog("上云间隔时间","SendToInternetTime");
+//            return true;
+//        }
+//        if (id == R.id.action_setting20) {
+//            setBaudRateDialog();
+//            return true;
+//        }
+//        if (id == R.id.action_setting21) {
+//            setTimeDialog("休眠时间设定","SleepTime");
+//            return true;
+//        }
+//        if (id == R.id.action_setting22) {
+//            setId_Dialog("分组ID设置","GroupID");
+//            return true;
+//        }
+//        if (id == R.id.action_setting23) {
+//            setId_Dialog("用户ID设置","UnitID");
+//            return true;
+//        }
+//        if (id == R.id.action_setting24) {
+//            editSpinnerDialog("预警值","WarningValue");
+//            return true;
+//        }
+//        if (id == R.id.action_setting25) {
+//            editSpinnerDialog("报警值","AlarmValue");
+//            return true;
+//        }
+//        if (id == R.id.action_setting26) {
+//            EditTextDialog("产品名称设置","ProduceName");
+//            return true;
+//        }
+//        if (id == R.id.action_setting27) {
+//            locationDialog();
+//            return true;
+//        }
+//        if (id == R.id.action_setting28) {
+//            ipDialog("IP地址A设置","IPA");
+//            return true;
+//        }
+//        if (id == R.id.action_setting29) {
+//            ipDialog("IP地址B设置","IPB");
+//            return true;
+//        }
+//        if (id == R.id.action_setting30) {
+//            EditTextDialog("产品密钥设置","ProduceKey",R.layout.product_key,R.id.product_key);
+//            return true;
+//        }
+//        if (id == R.id.action_setting31) {
+//            EditTextDialog("设备名称设置","DeviceName",R.layout.device_name,R.id.device_name);
+//            return true;
+//        }
+//        if (id == R.id.action_setting32) {
+//            EditTextDialog("设备秘钥设置","Devicesecret",R.layout.device_key,R.id.device_key);
+//            return true;
+//        }
+//        if (id == R.id.action_setting33) {
+//            EditTextDialog("发布名称名称","PubTopic");
+//            return true;
+//        }
+//        if (id == R.id.action_setting34) {
+//            EditTextDialog("订阅消息名称","SubTopic");
+//            return true;
+//        }
+//        if (id == R.id.action_setting35) {
+//            AT_Utils.IMEI();
+//            return true;
+//        }
+//        if (id == R.id.action_setting36) {
+//            setATTextDialog();
+//        }
         return super.onOptionsItemSelected(item);
     }
 }

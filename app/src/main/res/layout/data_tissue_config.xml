@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:gravity="end"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_tissue" />
+
+            <CheckBox
+            android:id="@+id/data_tissue_special"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自定义专用" />
+            <CheckBox
+                android:id="@+id/data_tissue_general"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="自定义通用" />
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:id="@+id/data_tissue_modbus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MODBUS" />
+                <CheckBox
+                    android:id="@+id/data_tissue_IIC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="IIC" />
+                <CheckBox
+                    android:id="@+id/data_tissue_SPI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SPI" />
+        </LinearLayout>
+            <CheckBox
+                android:id="@+id/checkbox_data_tissue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"/>
+    </LinearLayout>
+
+</LinearLayout>

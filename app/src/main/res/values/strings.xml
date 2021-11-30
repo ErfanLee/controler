@@ -4,6 +4,7 @@
     <string name="large_text">
         receive
     </string>
+    <string name="action_setting">物联网关设置</string>
     <string name="action_setting1">发送信息</string>
     <string name="action_setting2">复位请求</string>
     <string name="action_setting3">休眠请求</string>

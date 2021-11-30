@@ -14,6 +14,11 @@ public class AT_Utils {
     static SocketClient socketClient;
 
     static void setPort(final String ipString,final int port){
+        if(socketClient!=null){
+            if(socketClient.isConnected()){
+                return;
+            }
+        }
         socketClient = new SocketClient(ipString,port);
     }
 
@@ -399,7 +404,7 @@ public class AT_Utils {
             @Override
             public void run() {
                 String command = "AT+DataTissue=@";
-                command = command + String.format(Locale.US,"%02d", m_dataTissue);
+                command = command + String.format(Locale.US,"%02x", m_dataTissue);
                 sendAtCommand(command);
             }
         });
