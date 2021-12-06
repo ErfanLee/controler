@@ -411,6 +411,30 @@ public class AT_Utils {
         thread.start();
     }
 
+    static void DataTransmission(final int m_DataTransmission){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+DataTransmission=@";
+                command = command + String.format(Locale.US,"%02x", m_DataTransmission);
+                sendAtCommand(command);
+            }
+        });
+        thread.start();
+    }
+
+    static void DataPrint(final int m_DataPrint){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String command = "AT+DataPrint=@";
+                command = command + String.format(Locale.US,"%02x", m_DataPrint);
+                sendAtCommand(command);
+            }
+        });
+        thread.start();
+    }
+
 
 
     /**

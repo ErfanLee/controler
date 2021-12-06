@@ -114,6 +114,8 @@
     <string name="wifi_password">WIFI密码:</string>
     <string name="transfer_protocol">数据传输协议:</string>
     <string name="data_tissue">数据组合协议:</string>
+    <string name="data_transmission">数据透传接口:</string>
+    <string name="data_print">数据打印接口:</string>
     <string name="display_time">屏显间隔时间:</string>
     <string name="internet_time">上云间隔时间:</string>
     <string name="message_time">采集信息间隔:</string>

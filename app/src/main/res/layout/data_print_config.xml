@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:gravity="end"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/data_print" />
+            <CheckBox
+                android:id="@+id/data_print_usart1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口1" />
+            <CheckBox
+                android:id="@+id/data_print_usart2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口2" />
+            <CheckBox
+                android:id="@+id/data_print_usart3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口3" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/data_print_usart4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口4" />
+            <CheckBox
+                android:id="@+id/data_print_usart5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口5" />
+            <CheckBox
+                android:id="@+id/data_print_usart6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="串口6" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/data_print_IIC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IIC接口" />
+            <CheckBox
+                android:id="@+id/data_print_SPI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SPI接口" />
+        </LinearLayout>
+        <CheckBox
+            android:id="@+id/checkbox_data_print"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+</LinearLayout>

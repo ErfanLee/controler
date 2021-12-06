@@ -44,6 +44,8 @@ public class ConfigActivity extends AppCompatActivity{
     int WifiMode;
     int TransferProtocol;
     int DataTissue;
+    int DataTransmission;
+    int DataPrint;
     int DisplayTime;
     int SendToInternetTime;
     int GetMegTime;
@@ -109,19 +111,17 @@ public class ConfigActivity extends AppCompatActivity{
         //数据传输协议
         final Spinner spinner_transfer_protocol   = findViewById(R.id.spinner_transfer_protocol);
         //数据组合协议
-        final Spinner spinner_data_tissue         = findViewById(R.id.spinner_data_tissue);
+        final DataTissueConfig checkbox_data_tissue = findViewById(R.id.dataTissue_config);
+        //数据透传接口
+        final DataTransmission checkbox_data_transmisson = findViewById(R.id.data_transmission_config);
+        //数据打印接口
+        final DataPrintConfig checkbox_data_print = findViewById(R.id.data_print_config);
         //屏显间隔时间
         final EditText edit_display_time          = findViewById(R.id.edit_display_time);
         //上云间隔时间
         final EditText edit_internet_time         = findViewById(R.id.edit_internet_time);
         //采集信息间隔
         final EditText edit_message_time          = findViewById(R.id.edit_message_time);
-        //波特率设置
-        final Spinner spinner_usart               = findViewById(R.id.spinner_usart);
-        final Spinner spinner_bound               = findViewById(R.id.spinner_bound);
-        final Spinner spinner_byte_length         = findViewById(R.id.spinner_byte_length);
-        final Spinner spinner_stop_bit            = findViewById(R.id.spinner_stop_bit);
-        final Spinner spinner_check_bit           = findViewById(R.id.spinner_check_bit);
 
         //串口设置多个串口
         final UsartConfigList usartConfigList     = findViewById(R.id.usartConfigList);
@@ -166,7 +166,7 @@ public class ConfigActivity extends AppCompatActivity{
         final CheckBox checkbox_wifi_name           = findViewById(R.id.checkbox_wifi_name);
         final CheckBox checkbox_wifi_password       = findViewById(R.id.checkbox_wifi_password);
         final CheckBox checkbox_transfer_protocol   = findViewById(R.id.checkbox_transfer_protocol);
-        final DataTissueConfig checkbox_data_tissue = findViewById(R.id.dataTissue_config);
+
         final CheckBox checkbox_display_time        = findViewById(R.id.checkbox_display_time);
         final CheckBox checkbox_internet_time       = findViewById(R.id.checkbox_internet_time);
         final CheckBox checkbox_message_time        = findViewById(R.id.checkbox_message_time);
@@ -200,7 +200,7 @@ public class ConfigActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Snackbar.make(view, "fab_send", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                if(AT_Utils.isMQTT == false){
+                if(!AT_Utils.isMQTT){
                     if(!AT_Utils.getWifiState()){
                         Toast.makeText(ConfigActivity.this,
                                 "Wifi连接失败",
@@ -225,6 +225,8 @@ public class ConfigActivity extends AppCompatActivity{
                 WifiPassword        = edit_wifi_password.getText().toString();
                 TransferProtocol    = (int)spinner_transfer_protocol.getSelectedItemId()+1;
                 DataTissue          = checkbox_data_tissue.getResult();
+                DataTransmission    = checkbox_data_transmisson.getResult();
+                DataPrint           = checkbox_data_print.getResult();
                 DisplayTime         = Integer.parseInt(edit_display_time.getText().toString());
                 SendToInternetTime  = Integer.parseInt(edit_internet_time.getText().toString());
                 GetMegTime          = Integer.parseInt(edit_message_time.getText().toString());
@@ -278,6 +280,12 @@ public class ConfigActivity extends AppCompatActivity{
                 if(checkbox_data_tissue.isChecked()){
                     AT_Utils.DataTissue(DataTissue);
                 }
+                if(checkbox_data_transmisson.isChecked()){
+                    AT_Utils.DataTransmission(DataTransmission);
+                }
+                if(checkbox_data_print.isChecked()){
+                    AT_Utils.DataPrint(DataPrint);
+                }
                 if(checkbox_display_time.isChecked()){
                     AT_Utils.SetTime(DisplayTime,"DisplayTime");
                 }
@@ -294,7 +302,6 @@ public class ConfigActivity extends AppCompatActivity{
                         AT_Utils.Baud(usartConfig.USARTx,usartConfig.Boundx,usartConfig.length,usartConfig.stop,usartConfig.check);
                     }
                 }
-
                 //多个at text参数设置控件
                 for(int i =0;i<atConfigList.atNum;i++){
                     final ATTextConfig atTextConfig = atConfigList.get(i);
@@ -314,6 +321,7 @@ public class ConfigActivity extends AppCompatActivity{
                                 atTextConfig.data_after);
                     }
                 }
+
 
                 if(checkbox_sleep_time.isChecked()){
                     AT_Utils.SetTime(SleepTime,"SleepTime");
@@ -347,7 +355,7 @@ public class ConfigActivity extends AppCompatActivity{
                             "WIFI模式",
                             Toast.LENGTH_SHORT).show();
                     AT_Utils.isMQTT = false;
-                    wifiIP =  getLocalHost();
+                    wifiIP = getLocalHost();
                     Ip_port = 8080;
                     AT_Utils.setPort(wifiIP,Ip_port);
 
@@ -374,7 +382,7 @@ public class ConfigActivity extends AppCompatActivity{
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         int ipAddress = wifiInfo.getIpAddress();
         String strHost = ((ipAddress & 0xff)+"."+(ipAddress>>8 & 0xff)+"."
-                +(ipAddress>>16 & 0xff)+".108");//修改最末尾的地址
+                +(ipAddress>>16 & 0xff)+".1");//修改最末尾的地址
         if(ipAddress==0)return "未连接wifi";
         return strHost;
     }
