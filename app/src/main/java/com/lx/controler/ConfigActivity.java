@@ -62,6 +62,8 @@ public class ConfigActivity extends AppCompatActivity{
     String WifiName;
     String WifiPassword;
     String ProduceName;
+    String PubTopic;
+    String SubTopic;
 
 
     @Override
@@ -146,12 +148,18 @@ public class ConfigActivity extends AppCompatActivity{
         final EditText edit_produce_name          = findViewById(R.id.edit_produce_name);
         //位置信息
         //IP地址A设置
+        final IPEditText ip_edit_ipa              = findViewById(R.id.ip_edit_ipa);
+        final EditText   ip_port_ipa              = findViewById(R.id.ip_port_ipa);
         //IP地址B设置
+        final IPEditText ip_edit_ipb              = findViewById(R.id.ip_edit_ipb);
+        final EditText   ip_port_ipb              = findViewById(R.id.ip_port_ipb);
         //产品密钥设置
         //设备名称设置
         //设备秘钥设置
-        //发布名称名称
-        //订阅消息名称
+        //发布名称
+        final EditText edit_pub_topic             = findViewById(R.id.edit_pub_topic);
+        //订阅名称
+        final EditText edit_sub_topic             = findViewById(R.id.edit_sub_topic);
         //询问模块编号
         //物联信息采集
 
@@ -179,7 +187,10 @@ public class ConfigActivity extends AppCompatActivity{
         final CheckBox checkbox_project_alarm       = findViewById(R.id.checkbox_project_alarm);
         final CheckBox checkbox_produce_name        = findViewById(R.id.checkbox_produce_name);
         final CheckBox checkbox_location            = findViewById(R.id.checkbox_location);
-
+        final CheckBox checkBox_ipa                 = findViewById(R.id.checkbox_ipa);
+        final CheckBox checkBox_ipb                 = findViewById(R.id.checkbox_ipb);
+        final CheckBox checkbox_pub_topic           = findViewById(R.id.checkbox_pub_topic);
+        final CheckBox checkbox_sub_topic           = findViewById(R.id.checkbox_sub_topic);
 
         FloatingActionButton fab_exit  =  findViewById(R.id.fab_exit);
         fab_exit.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +251,8 @@ public class ConfigActivity extends AppCompatActivity{
                 Project_alarm       = (int)spinner_project_alarm.getSelectedItemId()+21;
                 Alarm_value         = Integer.parseInt(edit_alarm.getText().toString());
                 ProduceName         = edit_produce_name.getText().toString();
+                SubTopic            = edit_sub_topic.getText().toString();
+                PubTopic            = edit_pub_topic.getText().toString();
 
 
 
@@ -342,6 +355,28 @@ public class ConfigActivity extends AppCompatActivity{
                 }
                 if(checkbox_produce_name.isChecked()){
                     AT_Utils.ProduceName(ProduceName);
+                }
+                if(checkBox_ipa.isChecked()){
+                    int ip1 = ip_edit_ipa.getInt(1);
+                    int ip2 = ip_edit_ipa.getInt(2);
+                    int ip3 = ip_edit_ipa.getInt(3);
+                    int ip4 = ip_edit_ipa.getInt(4);
+                    int port =Integer.parseInt(ip_port_ipa.getText().toString());
+                    AT_Utils.IPA_B(ip1,ip2,ip3,ip4,port,"IPA");
+                }
+                if(checkBox_ipb.isChecked()){
+                    int ip1 = ip_edit_ipb.getInt(1);
+                    int ip2 = ip_edit_ipb.getInt(2);
+                    int ip3 = ip_edit_ipb.getInt(3);
+                    int ip4 = ip_edit_ipb.getInt(4);
+                    int port =Integer.parseInt(ip_port_ipb.getText().toString());
+                    AT_Utils.IPA_B(ip1,ip2,ip3,ip4,port,"IPB");
+                }
+                if(checkbox_pub_topic.isChecked()){
+                    AT_Utils.PubTopic(PubTopic);
+                }
+                if(checkbox_sub_topic.isChecked()){
+                    AT_Utils.SubTopic(SubTopic);
                 }
             }
         });
