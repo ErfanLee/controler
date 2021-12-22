@@ -48,8 +48,8 @@
     <string name="username">用户名</string>
     <string name="address">ip地址:</string>
     <string name="password">密码</string>
-    <string name="tourist">订阅主题名</string>
-    <string name="response">响应主题名</string>
+    <string name="tourist">发布主题名</string>
+    <string name="response">订阅主题名</string>
     <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">登录</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -95,14 +95,14 @@
     <string name="after_point">保留小数</string>
     <string name="after_data">采集数据后显示:</string>
     <string name="zero">0</string>
-    <string name="address_default">"ws://broker.emqx.io:8083"</string>
+    <string name="address_default">"tcp://broker.emqx.io:1883"</string>
     <string name="username_default">admin</string>
     <string name="password_default">password</string>
     <string name="tourist_default">test211</string>
-    <string name="response_default">message_arrived</string>
+    <string name="response_default">test211</string>
 
     <string name="work_mode">工作模式:</string>
-    <string name="connect_mode">连接模式:</string>
+    <string name="connect_mode">上云连接模式:</string>
     <string name="master_slave_mode">主从模式:</string>
     <string name="function_mode">功能模式:</string>
     <string name="transfer_mode">数据传输模式:</string>

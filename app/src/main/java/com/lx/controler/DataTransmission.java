@@ -24,7 +24,7 @@ public class DataTransmission extends LinearLayout {
     CheckBox checkBoxIIC;
     CheckBox checkBoxSPI;
     CheckBox checkbox_data_transmission;
-    DataTransmission(Context context, AttributeSet attrs){
+    public DataTransmission(final Context context,final  AttributeSet attrs){
         super(context, attrs);
         m_context = context;
         // TODO Auto-generated constructor stub

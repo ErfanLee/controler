@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity{
         // 获取控件对象
         ipAddressView   = (AutoCompleteTextView) findViewById(R.id.text_ip);
         userNameView    = (AutoCompleteTextView) findViewById(R.id.text_username);
-        mPasswordView   = (EditText)             findViewById(R.id.text_password);
+        mPasswordView   = (EditText) findViewById(R.id.text_password);
         touristView     = (AutoCompleteTextView) findViewById(R.id.text_tourist);
         responseView    = (AutoCompleteTextView) findViewById(R.id.text_response);
 
@@ -81,7 +81,6 @@ public class LoginActivity extends AppCompatActivity{
         // Reset errors.
         ipAddressView.setError(null);
         mPasswordView.setError(null);
-
         // Store values at the time of the login attempt.
         String ipAddress    = ipAddressView.getText().toString();
         String userName     = userNameView.getText().toString();
@@ -91,10 +90,9 @@ public class LoginActivity extends AppCompatActivity{
         Toast.makeText(LoginActivity.this,
                 ipAddress + userName + password + tourist + response,
                 Toast.LENGTH_SHORT).show();
-        MyMqttService.config(ipAddress,userName,password,tourist,response);
-        Intent intent = new Intent(this,ScrollingActivity.class);
+        Intent intent = new Intent(this,ConfigActivity.class);
         startActivity(intent);
+        MyMqttService.config(ipAddress,userName,password,tourist,response);
     }
-
 }
 

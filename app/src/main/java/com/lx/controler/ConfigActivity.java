@@ -1,7 +1,9 @@
 package com.lx.controler;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -19,6 +21,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 /**
  * Created by pc02 on 2021/9/14.
@@ -61,7 +64,6 @@ public class ConfigActivity extends AppCompatActivity{
     String ProduceName;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,8 +100,8 @@ public class ConfigActivity extends AppCompatActivity{
         final Spinner spinner_transfer_mode       = findViewById(R.id.spinner_transfer_mode);
         //显卡驱动卡
         final Spinner spinner_display_mode        = findViewById(R.id.spinner_display_mode);
-        //分组疏密
-        final Spinner spinner_group_number        = findViewById(R.id.spinner_group_number);
+        //分组数目
+        final EditText edit_group_number        = findViewById(R.id.edit_group_number);
         //上云目的地址
         final Spinner spinner_connect_target      = findViewById(R.id.spinner_connect_target);
         //wifi连接模式
@@ -113,7 +115,7 @@ public class ConfigActivity extends AppCompatActivity{
         //数据组合协议
         final DataTissueConfig checkbox_data_tissue = findViewById(R.id.dataTissue_config);
         //数据透传接口
-        final DataTransmission checkbox_data_transmisson = findViewById(R.id.data_transmission_config);
+        final DataTransmission checkbox_data_transmisson = findViewById(R.id.data_transmission);
         //数据打印接口
         final DataPrintConfig checkbox_data_print = findViewById(R.id.data_print_config);
         //屏显间隔时间
@@ -213,12 +215,12 @@ public class ConfigActivity extends AppCompatActivity{
 
 
                 WorkMode            = (int)spinner_work_mode.getSelectedItemId()+1;
-                ConnectMode         = (int)spinner_connect_mode.getSelectedItemId()+1;
+                ConnectMode         = (int)spinner_connect_mode.getSelectedItemId();
                 MasterSlaveMode     = (int)spinner_master_slave_mode.getSelectedItemId()+1;
                 FunctionMode        = (int)spinner_function_mode.getSelectedItemId()+1;
                 TransferMode        = (int)spinner_transfer_mode.getSelectedItemId()+1;
                 DisplayMode         = (int)spinner_display_mode.getSelectedItemId()+1;
-                GroupNumber         = (int)spinner_group_number.getSelectedItemId()+1;
+                GroupNumber         = Integer.parseInt(edit_group_number.getText().toString());
                 ConnectTarget       = (int)spinner_connect_target.getSelectedItemId()+1;
                 WifiMode            = (int)spinner_wifi_mode.getSelectedItemId()+1;
                 WifiName            = edit_wifi_name.getText().toString();
@@ -313,7 +315,7 @@ public class ConfigActivity extends AppCompatActivity{
                                 atTextConfig.projectInt,
                                 atTextConfig.display,
                                 atTextConfig.internet,
-                                atTextConfig.display,
+                                atTextConfig.displayNoInt,
                                 atTextConfig.rowsNoInt,
                                 atTextConfig.dataNum,
                                 atTextConfig.afterPointInt,
@@ -386,6 +388,8 @@ public class ConfigActivity extends AppCompatActivity{
         if(ipAddress==0)return "未连接wifi";
         return strHost;
     }
+
+
 }
 
 

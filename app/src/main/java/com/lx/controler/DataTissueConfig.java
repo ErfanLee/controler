@@ -20,7 +20,7 @@ public class DataTissueConfig extends LinearLayout {
     CheckBox data_tissue_SPI;
     CheckBox checkbox_data_tissue;
 
-    DataTissueConfig(Context context, AttributeSet attrs){
+    public DataTissueConfig(Context context, AttributeSet attrs){
         super(context, attrs);
         m_context = context;
         // TODO Auto-generated constructor stub

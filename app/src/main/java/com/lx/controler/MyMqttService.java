@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -36,13 +37,12 @@ public class MyMqttService extends Service {
     public static final String TAG = "DebugTag";
     private static MqttAndroidClient  mqttAndroidClient;
     private        MqttConnectOptions mMqttConnectOptions;
-    public static String HOST           = "ws://broker.emqx.io:8083";//服务器地址（协议+地址+端口号）
+    public static String HOST           = "tcp://broker.emqx.io:1883";//服务器地址（协议+地址+端口号）
     public static String USERNAME       = "admin";//用户名
     public static String PASSWORD       = "password";//密码
     public static String PUBLISH_TOPIC  = "test211";//发布主题
-    public static String RESPONSE_TOPIC = "message_arrived";//响应主题
-    @RequiresApi(api = 26)
-    public        String CLIENT_NUM = "terminal166e108e029d4decbd4d0e331cc6c2a3";//客户端ID
+    public static String RESPONSE_TOPIC = "test211";//订阅主题
+    public static String CLIENT_NUM = "terminal166e108e0456745331cc6c2a3";//客户端ID
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -116,6 +116,7 @@ public class MyMqttService extends Service {
      */
     private void init() {
         String serverURI = HOST; //服务器地址（协议+地址+端口号）
+        CLIENT_NUM = Settings.System.getString(getContentResolver(),Settings.System.ANDROID_ID);
         mqttAndroidClient = new MqttAndroidClient(this, serverURI, CLIENT_NUM);
         mqttAndroidClient.setCallback(mqttCallback); //设置监听订阅消息的回调
         mMqttConnectOptions = new MqttConnectOptions();

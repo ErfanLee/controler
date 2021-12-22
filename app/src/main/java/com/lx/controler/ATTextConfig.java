@@ -38,13 +38,13 @@ public class ATTextConfig extends LinearLayout{
     final int DISPLAY_NO_BASE  = 1;
     final int ROWS_NO_BASE = 1;
 
+    final TextView text_row_num;
     final TextView text_project;
     final TextView text_agreement;
     final CheckBox checkBoxErase;
     final CheckBox checkBoxSingle;
     final CheckBox checkBoxDisplay;
     final CheckBox checkBoxInternet;
-    final TextView text_rowNum;
     final TextView text_display_no;
     final TextView text_row_no;
     final TextView text_num;
@@ -75,13 +75,13 @@ public class ATTextConfig extends LinearLayout{
         m_context = context;
         // TODO Auto-generated constructor stub
         View view = LayoutInflater.from(context).inflate(R.layout.at_text_config, this);
+        text_row_num = view.findViewById(R.id.text_row_num);
         text_project = view.findViewById(R.id.text_project);
         text_agreement = view.findViewById(R.id.text_agreement);
         checkBoxErase    = view.findViewById(R.id.chk_erase);
         checkBoxSingle   = view.findViewById(R.id.chk_single);
         checkBoxDisplay  = view.findViewById(R.id.chk_display);
         checkBoxInternet = view.findViewById(R.id.chk_internet);
-        text_rowNum      = view.findViewById(R.id.text_rowNum);
         text_display_no  = view.findViewById(R.id.text_display_no);
         text_row_no      = view.findViewById(R.id.text_row_no);
         text_num         = view.findViewById(R.id.text_num);
@@ -127,7 +127,7 @@ public class ATTextConfig extends LinearLayout{
         }else{
             checkBoxInternet.setChecked(false);
         }
-        text_rowNum.setText(""+rowsNum);
+        text_row_num.setText(""+rowsNum);
         text_display_no.setText(""+displayNoInt);
         text_row_no.setText(""+rowsNoInt);
         text_num.setText(""+dataNum);

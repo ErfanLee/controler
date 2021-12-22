@@ -1,25 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.lx.controler.ScrollingActivity">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="30dp"
-        android:gravity="end"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.lx.controler.ConfigActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,612 +43,630 @@
             app:layout_anchor="@id/app_bar"
             app:srcCompat="@android:drawable/ic_menu_send" />
     </LinearLayout>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+            android:layout_marginRight="30dp"
+            android:gravity="end"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/work_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_work_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/work_mode" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_work_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/work_mode" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_work_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/work_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkbox_work_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect_mode" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_connect_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/connect_mode" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_connect_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
+                android:gravity="right"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/master_slave_mode" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_master_slave_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/master_slave_mode" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_master_slave_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/connect_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_connect_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/function_mode" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_function_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/function_mode" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_function_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/connect_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkbox_connect_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transfer_mode" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_transfer_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/transfer_mode" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_transfer_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/display_mode" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_display_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/display_mode" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/checkbox_display_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/master_slave_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_master_slave_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group_number" />
+
+                <EditText
+                    android:id="@+id/edit_group_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="3"
+                    android:maxLength="2"
+                    android:text="1"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_group_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/master_slave_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkbox_master_slave_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connect_target" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_connect_target"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/connect_target" />
+
+                <CheckBox
+                    android:id="@+id/checkbox_connect_target"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wifi_mode" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_wifi_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/wifi_mode" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/checkbox_wifi_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/function_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_function_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wifi_name" />
+
+                <EditText
+                    android:id="@+id/edit_wifi_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:maxLength="20"
+                    android:text="SPS2"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_wifi_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/function_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkbox_function_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wifi_password" />
+
+                <EditText
+                    android:id="@+id/edit_wifi_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword"
+                    android:maxLength="10"
+                    android:text="12345678"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_wifi_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/transfer_protocol" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_transfer_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/transfer_protocol" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <CheckBox
+                    android:id="@+id/checkbox_transfer_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/transfer_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_transfer_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/display_time" />
+
+                <EditText
+                    android:id="@+id/edit_display_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="8"
+                    android:maxLength="8"
+                    android:text="36000"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_display_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/transfer_mode" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkbox_transfer_mode"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/internet_time" />
+
+                <EditText
+                    android:id="@+id/edit_internet_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="8"
+                    android:maxLength="8"
+                    android:text="36000"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_internet_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
+                android:gravity="right"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/message_time" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/display_mode" />
+                <EditText
+                    android:id="@+id/edit_message_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="8"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:text="36000"/>
 
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_display_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/display_mode" />
+                <CheckBox
+                    android:id="@+id/checkbox_message_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/checkbox_display_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/group_number" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_group_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/group_number" />
-
-            <CheckBox
-                android:id="@+id/checkbox_group_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/connect_target" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_connect_target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/connect_target" />
-
-            <CheckBox
-                android:id="@+id/checkbox_connect_target"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wifi_mode" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_wifi_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/wifi_mode" />
-
-            <CheckBox
-                android:id="@+id/checkbox_wifi_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wifi_name" />
-
-            <EditText
-                android:id="@+id/edit_wifi_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:maxLength="20"
-                android:text="SPS2"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_wifi_name"
-                android:layout_width="wrap_content"
+            <com.lx.controler.DataTissueConfig
+                android:id="@+id/dataTissue_config"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 />
-        </LinearLayout>
 
-        <LinearLayout
+            <com.lx.controler.DataTransmission
+                android:id="@+id/data_transmission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <com.lx.controler.DataPrintConfig
+                android:id="@+id/data_print_config"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <com.lx.controler.UsartConfigList
+                android:id="@+id/usartConfigList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <com.lx.controler.ATTextConfigList
+                android:id="@+id/atTextConfigList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sleep_time" />
+
+                <EditText
+                    android:id="@+id/edit_sleep_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="8"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:text="36000"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_sleep_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group_id" />
+
+                <EditText
+                    android:id="@+id/edit_group_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="01"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_group_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/user_id" />
+
+                <EditText
+                    android:id="@+id/edit_user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="05"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_user_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/warn" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_project_warn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/project" />
+
+                <EditText
+                    android:id="@+id/edit_warn_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="100"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_project_warn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alarm" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinner_project_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/project" />
+
+                <EditText
+                    android:id="@+id/edit_alarm_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="number"
+                    android:maxLength="4"
+                    android:text="200"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_project_alarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/produce" />
+
+                <EditText
+                    android:id="@+id/edit_produce_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="8"
+                    android:maxLength="8"
+                    android:text="huanjing"/>
+
+                <CheckBox
+                    android:id="@+id/checkbox_produce_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/wifi_password" />
+            android:orientation="vertical">
 
             <EditText
-                android:id="@+id/edit_wifi_password"
-                android:layout_width="wrap_content"
+                android:id="@+id/edit_location_x"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPassword"
-                android:maxLength="10"
-                android:text="12345678"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_wifi_password"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/transfer_protocol" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_transfer_protocol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/transfer_protocol" />
-
-            <CheckBox
-                android:id="@+id/checkbox_transfer_protocol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <com.lx.controler.DataTissueConfig
-            android:id="@+id/dataTissue_config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-        <com.lx.controler.DataTransmission
-            android:id="@+id/data_transmission_config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <com.lx.controler.DataPrintConfig
-            android:id="@+id/data_print_config"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/display_time" />
+                android:inputType="numberDecimal"
+                android:hint="@string/location_x"/>
 
             <EditText
-                android:id="@+id/edit_display_time"
-                android:layout_width="wrap_content"
+                android:id="@+id/location_y"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="8"
-                android:maxLength="8"
-                android:text="36000"/>
-
+                android:inputType="numberDecimal"
+                android:hint="@string/location_y"/>
             <CheckBox
-                android:id="@+id/checkbox_display_time"
+                android:id="@+id/checkbox_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                  />
+            </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/internet_time" />
-
-            <EditText
-                android:id="@+id/edit_internet_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:ems="8"
-                android:maxLength="8"
-                android:text="36000"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_internet_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/message_time" />
-
-            <EditText
-                android:id="@+id/edit_message_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:inputType="number"
-                android:maxLength="8"
-                android:text="36000"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_message_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-
-        <com.lx.controler.UsartConfigList
-            android:id="@+id/usartConfigList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <com.lx.controler.ATTextConfigList
-            android:id="@+id/atTextConfigList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sleep_time" />
-
-            <EditText
-                android:id="@+id/edit_sleep_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:inputType="number"
-                android:maxLength="8"
-                android:text="36000"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_sleep_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/group_id" />
-
-            <EditText
-                android:id="@+id/edit_group_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number"
-                android:maxLength="4"
-                android:text="01"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_group_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/user_id" />
-
-            <EditText
-                android:id="@+id/edit_user_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number"
-                android:maxLength="4"
-                android:text="05"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_user_id"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/warn" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_project_warn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/project" />
-
-            <EditText
-                android:id="@+id/edit_warn_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number"
-                android:maxLength="4"
-                android:text="100"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_project_warn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/alarm" />
-
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinner_project_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/project" />
-
-            <EditText
-                android:id="@+id/edit_alarm_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="4"
-                android:inputType="number"
-                android:maxLength="4"
-                android:text="200"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_project_alarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/produce" />
-
-            <EditText
-                android:id="@+id/edit_produce_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="8"
-                android:maxLength="8"
-                android:text="huanjing"/>
-
-            <CheckBox
-                android:id="@+id/checkbox_produce_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
-        </LinearLayout>
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:orientation="vertical">
-
-        <EditText
-            android:id="@+id/edit_location_x"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="@string/location_x"/>
-
-        <EditText
-            android:id="@+id/location_y"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:hint="@string/location_y"/>
-        <CheckBox
-            android:id="@+id/checkbox_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             />
-        </LinearLayout>
-    </LinearLayout>
-
-</android.support.v4.widget.NestedScrollView>
+</LinearLayout>

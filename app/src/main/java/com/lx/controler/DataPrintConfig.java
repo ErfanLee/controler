@@ -22,7 +22,7 @@ public class DataPrintConfig extends LinearLayout {
     CheckBox checkBoxIIC;
     CheckBox checkBoxSPI;
     CheckBox checkbox_data_print;
-    DataPrintConfig(Context context, AttributeSet attrs){
+    public DataPrintConfig(Context context, AttributeSet attrs){
         super(context,attrs);
         m_context = context;
         // TODO Auto-generated constructor stub

@@ -10,11 +10,12 @@
         <item>公网模组</item>
         <item>网口</item>
         <item>Wifi</item>
+        <item>热点模式</item>
     </string-array>
 
     <string-array name="master_slave_mode">
         <item>主机</item>
-        <item>丛机</item>
+        <item>从机</item>
     </string-array>
 
     <string-array name="function_mode">
@@ -34,17 +35,17 @@
     </string-array>
 
     <string-array name="group_number">
-        <item>风向</item>
-        <item></item>
-        <item>风速</item>
-        <item>温度</item>
-        <item>湿度</item>
-        <item>噪音</item>
-        <item>PM2.5</item>
-        <item>PM10</item>
-        <item>大气压</item>
-        <item>光照度</item>
-        <item>雨量</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
     </string-array>
 
     <string-array name="connect_target">

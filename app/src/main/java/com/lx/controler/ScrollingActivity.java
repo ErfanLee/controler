@@ -103,7 +103,6 @@ public class ScrollingActivity extends AppCompatActivity {
                 //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
                 setBaudRateDialog();
 
-
                 //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
                 //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 ///startActivity(intent);
@@ -116,13 +115,8 @@ public class ScrollingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "发送指令", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                //MyMqttService.publish("[{\"tag\":\"LockOrder\",\"text\":\"1\"},{\"tag\":\"DeviceOrder\",\"text\":\"1\"}]");
-
-
-
-                //Uri uri = Uri.parse("http://sj18636631.51mypc.cn:43123/view.html?id=6066c5c2961b50210040accd");
-                //Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                ///startActivity(intent);
+                Intent intent = new Intent(ScrollingActivity.this,ConfigActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -657,6 +651,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             return;
                         }else {
+                            int rowNum = Integer.parseInt(editText.getText().toString());
                             int erase = 0;
                             int single = 0;
                             int display = 0;
@@ -683,7 +678,7 @@ public class ScrollingActivity extends AppCompatActivity {
                                     "项目类型" + spinner0.getSelectedItem().toString()
                                             + "擦除标志" + checkErase.isChecked(),
                                     Toast.LENGTH_SHORT).show();
-                            AT_Utils.ConfigText(Integer.parseInt(editText.getText().toString()), erase, single, agreementInt, projectInt, display, internet, displayNoInt, rowsNoInt, beforePointInt, afterPointInt, edtTextBefore.getText().toString(), edtTextAfter.getText().toString());
+                            AT_Utils.ConfigText(rowNum, erase, single, agreementInt, projectInt, display, internet, displayNoInt, rowsNoInt, beforePointInt, afterPointInt, edtTextBefore.getText().toString(), edtTextAfter.getText().toString());
                         }
                     }
                 });
@@ -1058,7 +1053,7 @@ public class ScrollingActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if(id == R.id.action_setting){
-            Intent intent = new Intent(this,ConfigActivity.class);
+            Intent intent = new Intent(ScrollingActivity.this,ConfigActivity.class);
             startActivity(intent);
         }
 //        if (id == R.id.action_setting1) {
@@ -1204,6 +1199,6 @@ public class ScrollingActivity extends AppCompatActivity {
 //        if (id == R.id.action_setting36) {
 //            setATTextDialog();
 //        }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

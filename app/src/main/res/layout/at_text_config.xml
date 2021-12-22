@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="end"
     android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
     android:layout_marginBottom="5dp"
     android:orientation="vertical">
     <LinearLayout
@@ -13,7 +14,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="项目:"/>
+            android:text="行数:"/>
+        <TextView
+            android:id="@+id/text_row_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=";项目:"/>
         <TextView
             android:id="@+id/text_project"
             android:layout_width="wrap_content"
@@ -74,16 +84,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="行数:"/>
-        <TextView
-            android:id="@+id/text_rowNum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=";屏"/>
+            android:text="屏"/>
         <TextView
             android:id="@+id/text_display_no"
             android:layout_width="wrap_content"

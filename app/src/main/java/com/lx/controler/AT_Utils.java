@@ -224,14 +224,27 @@ public class AT_Utils {
 
     /**
      * 设置连接模式
-     * @param m_mode 1,公网模组；2，网口，3,WiFi
+     * @param m_mode 1,公网模组；2，网口，3,WiFi,4热点
      */
     static void ConnectMode(final int m_mode){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 String command = "AT+ConnectMode=@";
-                command = command + String.format(Locale.US,"%02d", m_mode);
+                String mode = "";
+                if(m_mode == 0){
+                    mode="01";
+                }
+                if(m_mode == 1){
+                    mode="02";
+                }
+                if(m_mode == 2){
+                    mode="20";
+                }
+                if(m_mode == 3){
+                    mode="80";
+                }
+                command = command + mode;
                 sendAtCommand(command);
             }
         });
@@ -262,7 +275,7 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+MasterSlaveMode=@";
+                String command = "AT+FunctionMode=@";
                 command = command + String.format(Locale.US,"%02d", m_mode);
                 sendAtCommand(command);
             }
@@ -360,7 +373,7 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WifiName=@";
+                String command = "AT+WifiName=#";
                 command = command + m_name;
                 sendAtCommand(command);
             }
@@ -375,7 +388,7 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+WifiPassword=@";
+                String command = "AT+WifiPassword=#";
                 command = command + m_password;
                 sendAtCommand(command);
             }
@@ -557,7 +570,7 @@ public class AT_Utils {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String command = "AT+ProduceName=@";
+                String command = "AT+ProduceName=#";
                 command = command + m_name;
                 sendAtCommand(command);
             }
@@ -731,8 +744,8 @@ public class AT_Utils {
 
 
     /**
-     * AT+Text<行数>=<全擦除标志><单选有效标识><字符个数><协议类型><项目代号><1位向显示器发送数据标志><1位向互联网发送数据标志><1位显示屏序号><1位显示行号>
-     * @param rowsNum 行数
+     * AT+Text=<全擦除标志><单选有效标识><字符个数><协议类型><项目代号><1位向显示器发送数据标志><1位向互联网发送数据标志><1位显示屏序号><1位显示行号>
+     * @param rowNum
      * @param erase 全擦除标志
      * @param singleChoice 单选有效标志
      * @param agreementType 协议类型
@@ -742,9 +755,9 @@ public class AT_Utils {
      * @param displayNo 1位显示屏序号
      * @param rowNo 1位显示行号
      */
-    static void ConfigText(int rowsNum,int erase,int singleChoice,int agreementType,int projectNo,int sendDisplay,int sendInternet,int displayNo,int rowNo,int dataNum,int afterPoint,String text1,String text2){
+    static void ConfigText(int rowNum,int erase,int singleChoice,int agreementType,int projectNo,int sendDisplay,int sendInternet,int displayNo,int rowNo,int dataNum,int afterPoint,String text1,String text2){
 
-        final String configStr1 = "AT+Text"+String.format(Locale.US,"%02d", rowsNum) +"="+erase+singleChoice;
+        final String configStr1 = "AT+Text"+String.format(Locale.US,"%02d", rowNum)+"="+erase+singleChoice;
 
         try {
             String strGBK1 = URLEncoder.encode(text1,"GBK");
@@ -758,13 +771,14 @@ public class AT_Utils {
                 pointFormat = pointFormat+"#"+i;
             }
 
-            final String configStr2 = ""+agreementType+projectNo+sendDisplay+sendInternet+displayNo+rowNo+strGBK1+pointFormat+strGBK2;
-            final int bytesNum = configStr1.length()+configStr2.length();
+            //显示屏号和行号码用16进制显示
+            final String configStr2 = ""+agreementType+projectNo+sendDisplay+sendInternet+String.format(Locale.US,"%x",displayNo)+String.format(Locale.US,"%x",rowNo)+strGBK1+pointFormat+strGBK2;
+            final int bytesNum = strGBK1.length()+strGBK2.length();
 
             Thread thread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String command = configStr1 + bytesNum + configStr2;
+                    String command = configStr1 + String.format(Locale.US,"%02d", bytesNum) + configStr2;
 
                     sendAtCommand(command);
                 }
